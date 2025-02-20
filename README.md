@@ -9,5 +9,5 @@ Scripts used to analyze the 11 public transcriptome datasets in cotton related t
 
 Other data used:
 *  11 transcriptome datas were downloaded in NCBI under BioProject accession numbers PRJNA531727, PRJNA601953, PRJNA623201, PRJNA253112, PRJNA722118, PRJNA248163, PRJNA482027, PRJNA485838, PRJNA532694, PRJNA490626 and PRJNA919499.
-* The raw sequence data generated have been deposited in China National Center for Bioinformation under GSA:CRA016187
+* The raw sequence data generated have been deposited in China National Center for Bioinformation under GSA: [CRA016187](https://ngdc.cncb.ac.cn/gsa/search?searchTerm=CRA016187)
  
