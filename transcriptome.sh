@@ -1,8 +1,8 @@
-1. download data：
-login https://sra-explorer.info/
+## 1. download data：
+# login https://sra-explorer.info/
 conda activate rnaseq
-cd  /vol3/agis/huguanjing_group/xiongxianpeng/salt2023/rawdata
-# mkdir rawdata 
+cd  /vol3/agis/huguanjing_group/xiongxianpeng/salt2023/
+mkdir rawdata 
 
 vi download.sh
 ascp -QT -l 300m -P33001 -i $HOME/.aspera/connect/etc/asperaweb_id_dsa.openssh era-fasp@fasp.sra.ebi.ac.uk:vol1/fastq/SRR120/012/SRR12077612/SRR12077612_1.fastq.gz . && mv SRR12077612_1.fastq.gz SRR12077612_LfJ02-508-3DPA1_1.fastq.gz
@@ -13,7 +13,7 @@ nohup bash download.sh &
 ###top -u xiongxianpeng
 admin536363
 
-2. #fastqc
+## 2. fastqc
 vi fq.sh
 qcdir=/vol3/agis/huguanjing_group/xiongxianpeng/PRJNA490626/fq     
 
