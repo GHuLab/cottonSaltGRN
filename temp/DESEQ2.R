@@ -12,16 +12,16 @@ write.csv(bb,file="C:/Users/hr345/Desktop/counts/PRJNA532649/OD.csv")
 
 ####Deseq2
 library(DESeq2)
-#ÏÔÊ¾mycountsĞÅÏ¢
+#æ˜¾ç¤ºmycountsä¿¡æ¯
 rm(list=ls())
-#ÉèÖÃ¹¤×÷Ä¿Â¼
+#è®¾ç½®å·¥ä½œç›®å½•
 setwd("C:/Users/hr345/Desktop/all/counts")
 exprSetTPM=read.table('C:/Users/hr345/Desktop/all/counts/PRJNA919499/count4.txt',header=T,sep="\t",row.names=1)
 head(exprSetTPM)
 #WT_rep1 WT_rep2 WT_rep3 GhWRKY16.RNAi_rep1 GhWRKY16.RNAi_rep2 GhWRKY16.RNAi_rep3 GhWRKY16.RNAi_rep5
 #Gohir.A01G000101       1       6       6               1                4                4                 11
 #Gohir.A01G000201      18      21      17               15               14               13                 54
-###Ò»°ã3¸öÖØ¸´¾ÍĞĞ£¬ÕâÀïÓĞ4¸ö£¬ËùÒÔÎÒÉ¾³ıÁË1¸ö
+###ä¸€èˆ¬3ä¸ªé‡å¤å°±è¡Œï¼Œè¿™é‡Œæœ‰4ä¸ªï¼Œæ‰€ä»¥æˆ‘åˆ é™¤äº†1ä¸ª
 exprSetTPM1=exprSetTPM[,-4:-36]
 #exprSetTPM2=exprSetTPM1[,-4:-36]
 #exprSetTPM2=exprSetTPM1[,-4:-48]
@@ -32,20 +32,20 @@ head(exprSetTPM3)
 #Gohir.A01G000101       1       6       6                  4                  4                 11
 #Gohir.A01G000201      18      21      17                 14                 13                 54
 
-##ÉèÖÃÑùÆ·×é±ğ¡¢ÖØ¸´Êı
+##è®¾ç½®æ ·å“ç»„åˆ«ã€é‡å¤æ•°
 #condition <- factor(c(rep("CK", 3), rep("CK1",3)),levels = c("CK","CK1"))
 #condition <- factor(c(rep("SK", 3), rep("SK1",3)),levels = c("SK","SK1"))
 #condition <- factor(c(rep("S", 3), rep("S1",3)),levels = c("S","S1"))
 #condition <- factor(c(rep("H15", 3), rep("DH15",3)),levels = c("H15","DH15"))
 condition <- factor(c(rep("ZM12", 3), rep("DZM12",3)),levels = c("ZM12","DZM12"))
-##ÏÔÊ¾conditionÉèÖÃ
+##æ˜¾ç¤ºconditionè®¾ç½®
 condition
 ##[1] WT     WT     WT     WRKY16 WRKY16 WRKY16
 ##Levels: WT WRKY16
-#ÉèÖÃcolDataÖµ
+#è®¾ç½®colDataå€¼
 #colData <- data.frame(row.names = colnames(exprSetTPM2), condition)
 colData <- data.frame(row.names = colnames(exprSetTPM3), condition)
-##ÏÔÊ¾colDataÖµ
+##æ˜¾ç¤ºcolDataå€¼
 colData
 #condition
 #WT_rep1                   WT
@@ -54,26 +54,26 @@ colData
 #GhWRKY16.RNAi_rep2    WRKY16
 #GhWRKY16.RNAi_rep3    WRKY16
 #GhWRKY16.RNAi_rep5    WRKY16
-#¹¹½¨dds¾ØÕó
+#æ„å»ºddsçŸ©é˜µ
 dds <- DESeqDataSetFromMatrix(exprSetTPM3, colData, design = ~condition)
-#¶ÔÔ­Ê¼dds½øĞĞnormalize
+#å¯¹åŸå§‹ddsè¿›è¡Œnormalize
 dds <- DESeq(dds)
-#ÏÔÊ¾ddsĞÅÏ¢
+#æ˜¾ç¤ºddsä¿¡æ¯
 dds
-##Ê¹ÓÃDESeq2°üÖĞµÄresults()º¯Êı£¬ÌáÈ¡²îÒì·ÖÎöµÄ½á¹û
-##Usage:results(object, contrast, name, .....£©
-##½«ÌáÈ¡µÄ²îÒì·ÖÎö½á¹û¶¨ÒåÎª±äÁ¿"res" 
-##contrast: ¶¨ÒåË­ºÍË­±È½Ï
+##ä½¿ç”¨DESeq2åŒ…ä¸­çš„results()å‡½æ•°ï¼Œæå–å·®å¼‚åˆ†æçš„ç»“æœ
+##Usage:results(object, contrast, name, .....ï¼‰
+##å°†æå–çš„å·®å¼‚åˆ†æç»“æœå®šä¹‰ä¸ºå˜é‡"res" 
+##contrast: å®šä¹‰è°å’Œè°æ¯”è¾ƒ
 #res = results(dds, contrast=c("condition", "CK", "CK1"))
 #res = results(dds, contrast=c("condition", "SK", "SK1"))
 #res = results(dds, contrast=c("condition", "S", "S1"))
 #res = results(dds, contrast=c("condition", "H15", "DH15"))
 res = results(dds, contrast=c("condition", "ZM12", "DZM12"))
-##¶Ô½á¹ûresÀûÓÃorder()º¯Êı°´pvalueÖµ½øĞĞÅÅĞò
-##´´½¨¾ØÕóÊ±£¬X[i,]Ö¸¾ØÕóXÖĞµÄµÚiĞĞ£¬X[,j]Ö¸¾ØÕóXÖĞµÄµÚjÁĞ
-#order()º¯ÊıÏÈ¶ÔÊıÖµÅÅĞò£¬È»ºó·µ»ØÅÅĞòºó¸÷ÊıÖµµÄË÷Òı£¬³£ÓÃÓÃ·¨£ºV[order(V)]»òÕßdf[order(df$variable),]
+##å¯¹ç»“æœresåˆ©ç”¨order()å‡½æ•°æŒ‰pvalueå€¼è¿›è¡Œæ’åº
+##åˆ›å»ºçŸ©é˜µæ—¶ï¼ŒX[i,]æŒ‡çŸ©é˜µXä¸­çš„ç¬¬iè¡Œï¼ŒX[,j]æŒ‡çŸ©é˜µXä¸­çš„ç¬¬jåˆ—
+#order()å‡½æ•°å…ˆå¯¹æ•°å€¼æ’åºï¼Œç„¶åè¿”å›æ’åºåå„æ•°å€¼çš„ç´¢å¼•ï¼Œå¸¸ç”¨ç”¨æ³•ï¼šV[order(V)]æˆ–è€…df[order(df$variable),]
 res = res[order(res$pvalue),]
-#ÏÔÊ¾res½á¹ûÊ×ĞÅÏ¢
+#æ˜¾ç¤ºresç»“æœé¦–ä¿¡æ¯
 head(res)
 #log2 fold change (MLE): condition WT vs WRKY16 
 #Wald test p-value: condition WT vs WRKY16 
@@ -83,7 +83,7 @@ head(res)
  # Gohir.A01G010800  1221.149       -6.30991  0.224838  -28.0642 2.67779e-173 1.16109e-168
 #Gohir.A01G009380   360.635        4.14413  0.228304   18.1518  1.24219e-73  2.69306e-69
 
-#¶Ôres¾ØÕó½øĞĞ×Ü½á£¬ÀûÓÃsummaryÃüÁîÍ³¼ÆÏÔÊ¾Ò»¹²¶àÉÙ¸ögenesÉÏµ÷ºÍÏÂµ÷
+#å¯¹resçŸ©é˜µè¿›è¡Œæ€»ç»“ï¼Œåˆ©ç”¨summaryå‘½ä»¤ç»Ÿè®¡æ˜¾ç¤ºä¸€å…±å¤šå°‘ä¸ªgenesä¸Šè°ƒå’Œä¸‹è°ƒ
 summary(res)
 #out of 59243 with nonzero total read count
 #adjusted p-value < 0.1
@@ -95,22 +95,22 @@ summary(res)
 #[1] see 'cooksCutoff' argument of ?results
 #[2] see 'independentFiltering' argument of ?results
 
-#½«·ÖÎöµÄËùÓĞ½á¹û½øĞĞÊä³ö±£´æ
+#å°†åˆ†æçš„æ‰€æœ‰ç»“æœè¿›è¡Œè¾“å‡ºä¿å­˜
 #write.csv(res, file="All_20dparesults.csv")
-#ÏÔÊ¾ÏÔÖø²îÒìµÄÊıÄ¿  
+#æ˜¾ç¤ºæ˜¾è‘—å·®å¼‚çš„æ•°ç›®  
 table(res$padj<0.05)
 #FALSE  TRUE 
 #342684   676 
-#Ê¹ÓÃsubset()º¯Êı¹ıÂËĞèÒªµÄ½á¹ûÖÁĞÂµÄ±äÁ¿diff_gene_Group2ÖĞ
-#¸ù¾İ²»Í¬²ÎÊıÉ¸Ñ¡²îÒì±í´ï»ùÒò£¨ĞèÒª×Ô¼ºµ÷Õû£©
+#ä½¿ç”¨subset()å‡½æ•°è¿‡æ»¤éœ€è¦çš„ç»“æœè‡³æ–°çš„å˜é‡diff_gene_Group2ä¸­
+#æ ¹æ®ä¸åŒå‚æ•°ç­›é€‰å·®å¼‚è¡¨è¾¾åŸºå› ï¼ˆéœ€è¦è‡ªå·±è°ƒæ•´ï¼‰
 diff_gene_Group2 <- subset(res, padj < 0.05 & abs(log2FoldChange) > 1)
 #diff_gene_Group2 <- subset(res, padj < 0.05 )
-#Ò²¿ÉÒÔ½«²îÒì±¶Êı·Ö¿ªÀ´Ğ´£º
+#ä¹Ÿå¯ä»¥å°†å·®å¼‚å€æ•°åˆ†å¼€æ¥å†™ï¼š
 #> diff_gene_Group2 <-subset(res,padj < 0.05 & (log2FoldChange > 1 | log2FoldChange < -1))
-#Ê¹ÓÃdimº¯Êı²é¿´¸Ã½á¹ûµÄÎ¬¶È¡¢¹æÄ£
+#ä½¿ç”¨dimå‡½æ•°æŸ¥çœ‹è¯¥ç»“æœçš„ç»´åº¦ã€è§„æ¨¡
 dim(diff_gene_Group2)
 #[1] 490   6
-#ÏÔÊ¾½á¹ûµÄÊ×ĞÅÏ¢
+#æ˜¾ç¤ºç»“æœçš„é¦–ä¿¡æ¯
 summary(diff_gene_Group2)
 head(diff_gene_Group2)
 #log2 fold change (MLE): condition WT vs WRKY16 
@@ -120,6 +120,6 @@ head(diff_gene_Group2)
 #<numeric>      <numeric> <numeric> <numeric>    <numeric>    <numeric>
 #  Gohir.A01G010800  1221.149       -6.30991  0.224838  -28.0642 2.67779e-173 1.16109e-168
 #Gohir.A01G009380   360.635        4.14413  0.228304   18.1518  1.24219e-73  2.69306e-69
-#½«½á¹û½øĞĞÊä³ö±£´æ
+#å°†ç»“æœè¿›è¡Œè¾“å‡ºä¿å­˜
 write.csv(diff_gene_Group2, file = "SK6_SK6.csv")
 
