@@ -1,22 +1,22 @@
-##Ò¶Æ¬£¨°´Åú´Î·Ö£©
+##å¶ç‰‡ï¼ˆæŒ‰æ‰¹æ¬¡åˆ†ï¼‰
 rm(list=ls())
 library(data.table)
 expr1=fread("C:/Users/hr345/Desktop/all/alltpm1.txt",header=T,sep="\t")
 library(xlsx)
-sample <- read.xlsx("C:/Users/hr345/Desktop/all/¸÷Ààsample/sample£¨È¥Åú´Î£©2.xlsx",1,encoding="UTF-8")
+sample <- read.xlsx("C:/Users/hr345/Desktop/all/å„ç±»sample/sampleï¼ˆå»æ‰¹æ¬¡ï¼‰2.xlsx",1,encoding="UTF-8")
 colnames(expr1)[1] <- 'SRR'
 aa=merge(sample,expr1,by="SRR",sort=F)
 dim(aa)
 #[1]   234 75382
 rownames(aa)=aa$SRR
-expr=t(aa[,-1:-6]) #batch:Åú´Î
+expr=t(aa[,-1:-6]) #batch:æ‰¹æ¬¡
 dim(expr)
 #[1] 75376   170
 anno=sample
 dim(anno)
 #234 6
 
-#####Ò¶   È¥µôÃ÷ÏÔÀëÈºÑù±¾
+#####å¶   å»æ‰æ˜æ˜¾ç¦»ç¾¤æ ·æœ¬
 anno=anno[-140,]
 anno=anno[-197:-202,]
 anno=anno[-1:-123,]
@@ -56,25 +56,25 @@ ggplot(pumap,aes(UMAP_1,UMAP_2,color=batch))+
        theme(axis.title.y = element_text(size = 15))+ 
        scale_color_manual(values=c("#a3daff","#0080ff","#4ea1d3","#ede574","#fc913a","#ff4e50","#cbe86b"))
 
-##Ò¶Æ¬£¨°´ÖÖÀà·Ö£©
+##å¶ç‰‡ï¼ˆæŒ‰ç§ç±»åˆ†ï¼‰
 rm(list=ls())
 library(data.table)
 expr1=fread("C:/Users/hr345/Desktop/all/alltpm1.txt",header=T,sep="\t")
 library(xlsx)
-sample <- read.xlsx("C:/Users/hr345/Desktop/all/¸÷Ààsample/sample£¨È¥Åú´Î£©2.xlsx",1,encoding="UTF-8")
+sample <- read.xlsx("C:/Users/hr345/Desktop/all/å„ç±»sample/sampleï¼ˆå»æ‰¹æ¬¡ï¼‰2.xlsx",1,encoding="UTF-8")
 colnames(expr1)[1] <- 'SRR'
 aa=merge(sample,expr1,by="SRR",sort=F)
 dim(aa)
 #[1]   234 75382
 rownames(aa)=aa$SRR
-expr=t(aa[,-1:-6]) #batch:Åú´Î
+expr=t(aa[,-1:-6]) #batch:æ‰¹æ¬¡
 dim(expr)
 #[1] 75376   170
 anno=sample
 dim(anno)
 #234 6
 
-#####Ò¶   È¥µôÃ÷ÏÔÀëÈºÑù±¾
+#####å¶   å»æ‰æ˜æ˜¾ç¦»ç¾¤æ ·æœ¬
 anno=anno[-140,]
 anno=anno[-197:-202,]
 anno=anno[-1:-123,]
@@ -115,25 +115,25 @@ ggplot(pumap,aes(UMAP_1,UMAP_2,color=Accession))+
   scale_color_manual(values=c("#a3daff","#fc913a","#cbe86b"))
 
 
-##Ò¶Æ¬£¨°´´¦Àí·Ö£©
+##å¶ç‰‡ï¼ˆæŒ‰å¤„ç†åˆ†ï¼‰
 rm(list=ls())
 library(data.table)
 expr1=fread("C:/Users/hr345/Desktop/all/alltpm1.txt",header=T,sep="\t")
 library(xlsx)
-sample <- read.xlsx("C:/Users/hr345/Desktop/all/¸÷Ààsample/sample£¨È¥Åú´Î£©2.xlsx",1,encoding="UTF-8")
+sample <- read.xlsx("C:/Users/hr345/Desktop/all/å„ç±»sample/sampleï¼ˆå»æ‰¹æ¬¡ï¼‰2.xlsx",1,encoding="UTF-8")
 colnames(expr1)[1] <- 'SRR'
 aa=merge(sample,expr1,by="SRR",sort=F)
 dim(aa)
 #[1]   234 75382
 rownames(aa)=aa$SRR
-expr=t(aa[,-1:-6]) #batch:Åú´Î
+expr=t(aa[,-1:-6]) #batch:æ‰¹æ¬¡
 dim(expr)
 #[1] 75376   170
 anno=sample
 dim(anno)
 #234 6
 
-#####Ò¶   È¥µôÃ÷ÏÔÀëÈºÑù±¾
+#####å¶   å»æ‰æ˜æ˜¾ç¦»ç¾¤æ ·æœ¬
 anno=anno[-140,]
 anno=anno[-197:-202,]
 anno=anno[-1:-123,]
@@ -174,25 +174,25 @@ ggplot(pumap,aes(UMAP_1,UMAP_2,color=concentration))+
   scale_color_manual(values=c("#a3daff","#0080ff","#4ea1d3","#ede574","#fc913a","#ff4e50","#cbe86b"))
 
 
-##Ò¶Æ¬£¨°´Ê±¼ä·Ö£©
+##å¶ç‰‡ï¼ˆæŒ‰æ—¶é—´åˆ†ï¼‰
 rm(list=ls())
 library(data.table)
 expr1=fread("C:/Users/hr345/Desktop/all/alltpm1.txt",header=T,sep="\t")
 library(xlsx)
-sample <- read.xlsx("C:/Users/hr345/Desktop/all/¸÷Ààsample/sample£¨È¥Åú´Î£©2.xlsx",1,encoding="UTF-8")
+sample <- read.xlsx("C:/Users/hr345/Desktop/all/å„ç±»sample/sampleï¼ˆå»æ‰¹æ¬¡ï¼‰2.xlsx",1,encoding="UTF-8")
 colnames(expr1)[1] <- 'SRR'
 aa=merge(sample,expr1,by="SRR",sort=F)
 dim(aa)
 #[1]   234 75382
 rownames(aa)=aa$SRR
-expr=t(aa[,-1:-6]) #batch:Åú´Î
+expr=t(aa[,-1:-6]) #batch:æ‰¹æ¬¡
 dim(expr)
 #[1] 75376   170
 anno=sample
 dim(anno)
 #234 6
 
-#####Ò¶   È¥µôÃ÷ÏÔÀëÈºÑù±¾
+#####å¶   å»æ‰æ˜æ˜¾ç¦»ç¾¤æ ·æœ¬
 anno=anno[-140,]
 anno=anno[-197:-202,]
 anno=anno[-1:-123,]
@@ -232,18 +232,18 @@ ggplot(pumap,aes(UMAP_1,UMAP_2,color=time))+
   theme(axis.title.y = element_text(size = 15))+ 
   scale_color_manual(values=c("#a3daff","#1ec0ff","#0080ff","#4ea1d3","#ede574","#f8ca00","#fc913a","#ff4e50","#cbe86b","#3b8686"))
 
-##¸ù£¨°´Åú´Î·Ö£©
+##æ ¹ï¼ˆæŒ‰æ‰¹æ¬¡åˆ†ï¼‰
 rm(list=ls())
 library(data.table)
 expr1=fread("C:/Users/hr345/Desktop/all/alltpm1.txt",header=T,sep="\t")
 library(xlsx)
-sample <- read.xlsx("C:/Users/hr345/Desktop/all/¸÷Ààsample/sample£¨È¥Åú´Î£©2.xlsx",1,encoding="UTF-8")
+sample <- read.xlsx("C:/Users/hr345/Desktop/all/å„ç±»sample/sampleï¼ˆå»æ‰¹æ¬¡ï¼‰2.xlsx",1,encoding="UTF-8")
 colnames(expr1)[1] <- 'SRR'
 aa=merge(sample,expr1,by="SRR",sort=F)
 dim(aa)
 #[1]   234 75382
 rownames(aa)=aa$SRR
-expr=t(aa[,-1:-6]) #batch:Åú´Î
+expr=t(aa[,-1:-6]) #batch:æ‰¹æ¬¡
 dim(expr)
 #[1] 75376   170
 anno=sample
