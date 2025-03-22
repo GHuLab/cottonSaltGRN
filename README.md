@@ -1,7 +1,7 @@
 # cottonSaltGRN
 Scripts used to analyze the 11 public transcriptome datasets in cotton related to salt and salt-alkali responses and tolerance
 
-1. [transcriptome.md](transcriptome.md): Download public RNA-seq dataset, preprocessing, reference genome mapping, and transcript quantification
+1. [transcriptome.sh](transcriptome.sh): Download public RNA-seq dataset, preprocessing, reference genome mapping, and transcript quantification
 2. [batchEffectAnalysis.R](batchEffectAnalysis.R): Preliminerary analysis of TPM table, PCA and batch effect analysis
 3. [WGCNA.R](WGCNA.R): Weighted Gene Coexpression Network Analysis
 4. [GO.R](GO.R): GO enrichment analysis
