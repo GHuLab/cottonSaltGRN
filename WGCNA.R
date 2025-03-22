@@ -1,11 +1,10 @@
 
 ########WGCNA
 
-###########根
 rm(list=ls())
 library(data.table)
 expr1=fread("C:/Users/hr345/Desktop/all/alltpm1.txt",header=T,sep="\t")
-sample=fread("C:/Users/hr345/Desktop/all/WGCNA/抗感/抗感sample1.txt",header=T,sep="\t")
+sample=fread("C:/Users/hr345/Desktop/all/WGCNA/sample1.txt",header=T,sep="\t")
 colnames(expr1)[1] <- 'SRR'
 aa=merge(sample,expr1,by="SRR",sort=F)
 dim(aa)
@@ -16,7 +15,6 @@ dim(expr)
 anno=sample
 dim(anno)
 #234 6
-#####根做聚类   去掉1个样本
 anno=sample[1:123,]
 dim(anno)
 expr1=t(expr)
@@ -206,13 +204,13 @@ for(corM in c("bicor","pearson")){
 
 
 
-# 34672 genes    直接用这个跑后面的
+# 34672 genes 
 library(RColorBrewer)
 library(flashClust)
 library(WGCNA)
-load("C:/Users/hr345/Desktop/all/WGCNA/抗感/Rtemp56763.rdata")
-load("C:/Users/hr345/Desktop/all/WGCNA/抗感/wgcna.56763.cgn.Rdata")
-load("C:/Users/hr345/Desktop/all/WGCNA/抗感/wgcna.TPM.56763.prep.Rdata")
+load("C:/Users/hr345/Desktop/all/WGCNA/Rtemp56763.rdata")
+load("C:/Users/hr345/Desktop/all/WGCNA/wgcna.56763.cgn.Rdata")
+load("C:/Users/hr345/Desktop/all/WGCNA/wgcna.TPM.56763.prep.Rdata")
 
 ls()
 i="cgnP22b"
@@ -242,7 +240,6 @@ dim(MET)
 pdf(file = "Eigengene adjacency heatmap.pdf", width = 12, height = 9)
 plotEigengeneNetworks(MET, "C:/Users/hr345/Desktop/all/WGCNA/Eigengene adjacency heatmap", marHeatmap = c(3,4,2,2), plotDendrograms = FALSE, xLabelsAngle = 90)
 dev.off()
-#模块聚类树
 library(stringr)
 MEs=net$MEs
 MEs_col=MEs
@@ -260,9 +257,9 @@ rm(list=ls())
 library(WGCNA);
 library(RColorBrewer)
 library(flashClust);
-load("C:/Users/hr345/Desktop/all/WGCNA/抗感/Rtemp56763.rdata")
-load("C:/Users/hr345/Desktop/all/WGCNA/抗感/wgcna.56763.cgn.Rdata")
-load("C:/Users/hr345/Desktop/all/WGCNA/抗感/wgcna.TPM.56763.prep.Rdata")
+load("C:/Users/hr345/Desktop/all/WGCNA/Rtemp56763.rdata")
+load("C:/Users/hr345/Desktop/all/WGCNA/wgcna.56763.cgn.Rdata")
+load("C:/Users/hr345/Desktop/all/WGCNA/wgcna.TPM.56763.prep.Rdata")
 
 ls()
 i="cgnP22b"
@@ -275,6 +272,11 @@ moduleColors = labels2colors(net$colors)
 table(moduleColors)
 
 MEs = moduleEigengenes(datExpr, moduleColors)$eigengenes
+#calculate MM
+geneModuleMembership = as.data.frame(cor(datExpr, MEs, use = "p"));
+nSamples = nrow(datExpr)
+MMPvalue = as.data.frame(corPvalueStudent(as.matrix(geneModuleMembership), nSamples));
+
 MET = orderMEs(MEs)
 dim(MET)
 
@@ -325,7 +327,7 @@ class(c)
 names(c) <- c("a", "b", "c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","a1", "b1", "c1","d1","e1","f1","g1","h1","i1","j1","k1","l1","m1","n1","o1","p1","q1","r1","s1","t1","u1")
 c$module=c("black(347)","blue(4540)","brown(4264)","cyan(138)","green(485)","greenyellow(237)","grey(27128)","lightcyan(120)","magenta(258)", "midnightblue(130)","pink(300)","purple(253)","red(387)","salmon(148)","tan(173)", "turquoise(16588)","yellow(1267)")
 c <- c[, c("module","a", "b", "c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","a1", "b1", "c1","d1","e1","f1","g1","h1","i1","j1","k1","l1","m1","n1","o1","p1","q1","r1","s1","t1","u1")]
-anno=read.table("C:/Users/hr345/Desktop/all/WGCNA/抗感/抗感分类3.txt",header=T,sep="\t")
+anno=read.table("C:/Users/hr345/Desktop/all/WGCNA/3.txt",header=T,sep="\t")
 Period=anno[,-1]
 #names(Period)="time"
 head(Period)
@@ -395,7 +397,6 @@ c=data.frame(cbind(apply(MEs2[,1:13],1,mean),
 
 class(c)
 #[1] "data.frame"
-#修改行名
 names(c) <- c("a", "b", "c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","a1", "b1", "c1","d1","e1","f1","g1","h1","i1","j1","k1","l1","m1","n1","o1","p1","q1","r1","s1")
 
 #c$module=names(MEs)
@@ -405,7 +406,7 @@ c$module=c("black(347)","blue(4540)","brown(4264)","cyan(138)","green(485)","gre
 
 c <- c[, c("module","a", "b", "c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","a1", "b1", "c1","d1","e1","f1","g1","h1","i1","j1","k1","l1","m1","n1","o1","p1","q1","r1","s1")]
 
-anno=read.table("C:/Users/hr345/Desktop/all/WGCNA/抗感/抗感分类.txt",header=T,sep="\t")
+anno=read.table("C:/Users/hr345/Desktop/all/WGCNA/resistance.txt",header=T,sep="\t")
 Period=anno[,-1]
 #names(Period)="time"
 head(Period)
@@ -413,7 +414,7 @@ head(Period)
 #1 Elongation 5dpa
 class(Period)
 dim(Period)
-#anno11=data.frame(Period) 非数值需要转置
+#anno11=data.frame(Period) 
 
 
 per=c
@@ -441,7 +442,7 @@ pheatmap(dat2[-7,],annotation_col = Period,
 
 
 
-##提取每个模块的基因ID
+
 moduleGenes = names(net$colors)[net$colors%in%c("4")]
 write.csv(moduleGenes,"yellow.csv")
 # 0:grey   1:turquoise   2:blue   3:brown   4:yellow   5:green    6:red    7:black
@@ -452,7 +453,7 @@ write.csv(moduleGenes,"yellow.csv")
 
 
 
-#pdf 导出
+#pdf
 library(RColorBrewer)
 display.brewer.all() 
 
@@ -460,3 +461,62 @@ brewer.pal(9,"YlOrBr")
 
 display.brewer.pal(9,"YlGnBu")
 
+rm(list=ls())
+library(RColorBrewer)
+library(flashClust)
+library(WGCNA)
+options(stringsAsFactors = FALSE)
+allowWGCNAThreads()
+load("C:/Users/hr345/Desktop/all/WGCNA/鎶楁劅/Rtemp56763.rdata")
+load("C:/Users/hr345/Desktop/all/WGCNA/鎶楁劅/wgcna.56763.cgn.Rdata")
+load("C:/Users/hr345/Desktop/all/WGCNA/鎶楁劅/wgcna.TPM.56763.prep.Rdata")
+
+
+##calculate kME
+ls()
+i="cgnP22b"
+net = get(i)
+datExpr=as.data.frame(t(expr))
+dim(datExpr)
+# [[1]   123 56763
+moduleLabels = net$colors
+
+moduleColors = labels2colors(net$colors)
+table(moduleColors)
+
+##moduleColors
+#       black         blue        brown         cyan        green 
+#         347         4540         4264          138          485 
+# greenyellow         grey    lightcyan      magenta midnightblue 
+#         237        27128          120          258          130 
+#        pink       purple          red       salmon          tan 
+#         300          253          387          148          173 
+#   turquoise       yellow 
+#       16588         1267 
+
+MEs = moduleEigengenes(datExpr, moduleColors)$eigengenes
+MET = orderMEs(MEs)
+dim(MET)
+TOM = TOMsimilarityFromExpr(datExpr, power = 22)
+module = "brown"
+probes = names(datExpr)
+inModule = (moduleColors==module)
+modProbes = probes[inModule]
+modTOM = TOM[inModule, inModule]
+dimnames(modTOM) = list(modProbes, modProbes)
+cyt = exportNetworkToCytoscape(modTOM,edgeFile = paste("CytoscapeInput-edges-", paste(module, collapse="-"), ".txt", sep=""), nodeFile = paste("CytoscapeInput-nodes-", paste(module,  collapse="-"), ".txt", sep=""),weighted = TRUE, threshold = 0.1,nodeNames = modProbes, nodeAttr = moduleColors[inModule])
+##KME
+modNames = substring(names(MEs), 3)
+datKME=signedKME(datExpr, MEs, outputColumnName="kME_MM.")
+module = "blue"
+column = match(module, modNames)
+moduleGenes = moduleColors==module
+blue_module<-as.data.frame(dimnames(data.frame(datExpr))[[2]][moduleGenes])
+names(blue_module)="genename"
+blue_KME<-as.data.frame(datKME[moduleGenes,column])
+names(blue_KME)="KME"
+rownames(blue_KME)=blue_module$genename
+FilterGenes = abs(blue_KME$KME) > 0.8
+table(FilterGenes)
+blue_hub<-subset(blue_KME, abs(blue_KME$KME)>0.8)
+write.csv(blue_hub, "hubgene_KME_blue.csv")
