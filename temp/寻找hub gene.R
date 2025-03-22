@@ -1,13 +1,13 @@
-###Ñ°ÕÒhub gene
+###å¯»æ‰¾hub gene
 rm(list=ls())
 library(RColorBrewer)
 library(flashClust)
 library(WGCNA)
 options(stringsAsFactors = FALSE)
 allowWGCNAThreads()
-load("C:/Users/hr345/Desktop/all/WGCNA/¿¹¸Ğ/Rtemp56763.rdata")
-load("C:/Users/hr345/Desktop/all/WGCNA/¿¹¸Ğ/wgcna.56763.cgn.Rdata")
-load("C:/Users/hr345/Desktop/all/WGCNA/¿¹¸Ğ/wgcna.TPM.56763.prep.Rdata")
+load("C:/Users/hr345/Desktop/all/WGCNA/æŠ—æ„Ÿ/Rtemp56763.rdata")
+load("C:/Users/hr345/Desktop/all/WGCNA/æŠ—æ„Ÿ/wgcna.56763.cgn.Rdata")
+load("C:/Users/hr345/Desktop/all/WGCNA/æŠ—æ„Ÿ/wgcna.TPM.56763.prep.Rdata")
 
 ls()
 i="cgnP22b"
@@ -57,10 +57,10 @@ table(FilterGenes)
 blue_hub<-subset(blue_KME, abs(blue_KME$KME)>0.8)
 write.csv(blue_hub, "hubgene_KME_blue.csv")
 
-#²»ÓÃ¿´
-##Ö¬·¾ËáÍ¨Â·»ùÒò±í´ïÁ¿ÈÈÍ¼
+#ä¸ç”¨çœ‹
+##è„‚è‚ªé…¸é€šè·¯åŸºå› è¡¨è¾¾é‡çƒ­å›¾
 rm(list=ls())
-MEs2=fread("C:/Users/hr345/Desktop/Ö¬·¾Ëá±í´ïÁ¿1.txt",header=T,sep="\t")
+MEs2=fread("C:/Users/hr345/Desktop/è„‚è‚ªé…¸è¡¨è¾¾é‡1.txt",header=T,sep="\t")
 MEs2=MEs2[,-1]
 c=data.frame(cbind(apply(MEs2[,1:13],1,mean),
                    apply(MEs2[,14:16],1,mean),
@@ -103,12 +103,12 @@ c=data.frame(cbind(apply(MEs2[,1:13],1,mean),
 
 class(c)
 #[1] "data.frame"
-#ĞŞ¸ÄĞĞÃû
+#ä¿®æ”¹è¡Œå
 names(c) <- c("a", "b", "c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","a1", "b1", "c1","d1","e1","f1","g1","h1","i1","j1","k1","l1","m1","n1","o1","p1","q1","r1","s1")
 c$module=c("Gohir.D03G060500(SAD6)","Gohir.A02G107100(SAD6)","Gohir.D13G172400","Gohir.A13G161600","Gohir.A11G244900","Gohir.D07G003300(FATB)","Gohir.A07G003000(FATB)","Gohir.A06G060100(FATB)","Gohir.D06G058300(FATB)", "Gohir.D08G212700(FATA)","Gohir.A08G195400(FATA)","Gohir.D06G045200(LACS9)","Gohir.A06G044700(LACS9)","Gohir.A05G234900(LACS9)","Gohir.A07G087200(LACS9)", "Gohir.D09G089900(FAD3)","Gohir.D11G331500(FAD2)","Gohir.A11G314400(FAD2)","Gohir.A01G137630(FAD2)","Gohir.D01G125900(FAD2)","Gohir.A06G201800(LPCAT)","Gohir.D06G220000(LPCAT)","Gohir.D02G105800(LPCAT)","Gohir.A03G086500(LPCAT)","Gohir.D04G170000(GPAT9)","Gohir.A04G125200(GPAT9)","Gohir.A03G209200(GPAT9)","Gohir.A01G043500(LPP2)","Gohir.D01G034600(LPP2)","Gohir.A09G031100(GPDH)","Gohir.D09G031300(GPDH)","Gohir.A13G189400(KAS2)","Gohir.D13G196305(KAS2)","Gohir.A08G246500(KAS2)","Gohir.D08G267700(KAS2)","Gohir.D11G059800(DGAT2)","Gohir.A11G055700(DGAT2)","Gohir.D11G1092000(DGAT3)","Gohir.A11G104400(DGAT3)")
 c <- c[, c("module","a", "b", "c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","a1", "b1", "c1","d1","e1","f1","g1","h1","i1","j1","k1","l1","m1","n1","o1","p1","q1","r1","s1")]
 
-anno=read.table("C:/Users/hr345/Desktop/all/WGCNA/¿¹¸Ğ/¿¹¸Ğ·ÖÀà.txt",header=T,sep="\t")
+anno=read.table("C:/Users/hr345/Desktop/all/WGCNA/æŠ—æ„Ÿ/æŠ—æ„Ÿåˆ†ç±».txt",header=T,sep="\t")
 Period=anno[,-1]
 #names(Period)="time"
 head(Period)
@@ -116,7 +116,7 @@ head(Period)
 #1 Elongation 5dpa
 class(Period)
 dim(Period)
-#anno11=data.frame(Period) ·ÇÊıÖµĞèÒª×ªÖÃ
+#anno11=data.frame(Period) éæ•°å€¼éœ€è¦è½¬ç½®
 
 
 per=c
@@ -139,6 +139,6 @@ pheatmap(dat2,annotation_col = Period,
          gaps_col = c(5,9,16,23,28,31,34,38))
 
 
-#¿¨·½¼ìÑé
+#å¡æ–¹æ£€éªŒ
 R=matrix(c(120,56763,9,4264),nrow = 2,ncol = 2)
 chisq.test(R)
