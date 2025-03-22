@@ -1,5 +1,5 @@
 library(ggplot2)
-c <- read.table(file = "C:/Users/hr345/Desktop/all/new/��״ͼ.txt", sep = "\t", header = T )
+c <- read.table(file = "C:/Users/hr345/Desktop/all/new/Öù×´Í¼.txt", sep = "\t", header = T )
 head(c)
 #group1 group2 number
 #1     CK     up   2151
@@ -11,12 +11,12 @@ head(c)
 ggplot( c, aes( x = group1, y = number, fill = group2))+ geom_bar(stat="identity", color="black")+scale_fill_brewer(palette="Pastel")
 
 
-##YY����״ͼ
+##YYµÄÖù×´Í¼
 rm(list=ls())
 library(ggplot2)
 library(dplyr)
 library(magrittr)
-c <- read.table(file = "C:/Users/hr345/Desktop/�����.txt", sep = "\t", header = T )
+c <- read.table(file = "C:/Users/hr345/Desktop/´æ»îÂÊ.txt", sep = "\t", header = T )
 rate_mean <- c %>% 
      dplyr::group_by(variety) %>% 
      dplyr::summarize(
