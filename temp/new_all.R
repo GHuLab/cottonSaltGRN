@@ -37,21 +37,21 @@ ggplot(df_pcs,aes(x=PC1,y=PC2,color=treatment,shape=TRV))+
      theme(axis.title.y = element_text(size = 15))+ 
      scale_color_manual(values=c("#D1B6E1","#4ea1d3","#C5E99B"))+ scale_shape_manual(values=c(15,16))
 
-#““œ©Õ®¬∑»»Õº
-c <- read.table(file = "F:/new/–¬Ω®Œƒ±æŒƒµµ.txt", sep = "\t", header = T, row.names= 1 )
+#‰πôÁÉØÈÄöË∑ØÁÉ≠Âõæ
+c <- read.table(file = "F:/new/Êñ∞Âª∫ÊñáÊú¨ÊñáÊ°£.txt", sep = "\t", header = T, row.names= 1 )
 c=data.frame(cbind(apply(c[,1:3],1,mean),
                     apply(c[,4:6],1,mean),
                     apply(c[,7:9],1,mean),
                     apply(c[,10:12],1,mean),
                     apply(c[,13:15],1,mean),
                     apply(c[,16:18],1,mean)))
-c <- read.table(file = "D:/““œ©average.txt", sep = "\t", header = T, row.names= 1 )
+c <- read.table(file = "D:/‰πôÁÉØaverage.txt", sep = "\t", header = T, row.names= 1 )
 pheatmap(c,scale="row",cluster_cols=F,cluster_rows =T,display_numbers = F,fontsize_col = 10,fontsize_row = 8,show_colnames = T,cellwidth=20,cellheight = 10,angle_col = 45,color = colorRampPalette(c("blue","white","red"))(10))
 
-#ª…ΩÕº
+#ÁÅ´Â±±Âõæ
 rm(list=ls())
 library(xlsx)
-data <- read.xlsx("F:/new/CK≤Ó“Ï±Ì¥Ôª˘“Ú.xlsx",1,encoding="UTF-8")
+data <- read.xlsx("F:/new/CKÂ∑ÆÂºÇË°®ËææÂü∫Âõ†.xlsx",1,encoding="UTF-8")
 rownames(data)=data[,1]
 data=data[,-1]
 cut_off_padj =0.05
@@ -65,27 +65,27 @@ table(data$Sig)
 #595   2151
 library(ggplot2)
 pl <- ggplot(data, aes(x =log2FoldChange, y=padj_2, colour=Sig)) +
-  geom_point(alpha=0.65, size=2) +  #µ„µƒÕ∏√˜∂»°¢¥Û–°
-  scale_color_manual(values=c("#45d9fd", "#ff5f2e")) + xlim(c(-10, 10)) +  #µ˜’˚µ„µƒ—’…´∫Õx÷·µƒ»°÷µ∑∂Œß
-  geom_vline(xintercept=c(-cut_off_log2FoldChange,cut_off_log2FoldChange),lty=4,col="black",lwd=0.8) + #ÃÌº”x÷·∏®÷˙œﬂ,lty∫Ø ˝µ˜’˚œﬂµƒ¿‡–Õ£∫"twodash"°¢"longdash"°¢"dotdash"°¢"dotted"°¢"dashed"°¢"solid"°¢"blank"
-  geom_hline(yintercept = -log10(cut_off_padj), lty=4,col="black",lwd=0.8) +  #ÃÌº”y÷·∏®÷˙œﬂ
-  labs(x="log2FoldChange", y="-log10FDR") +  #x°¢y÷·±Í«©
-  ggtitle("TRV:00 : TRV:GhGDH2") + #±ÍÃ‚
-  theme_bw() + # ÷˜Ã‚£¨help(theme)≤È’“∆‰À˚∏ˆ–‘ªØ…Ë÷√
+  geom_point(alpha=0.65, size=2) +  #ÁÇπÁöÑÈÄèÊòéÂ∫¶„ÄÅÂ§ßÂ∞è
+  scale_color_manual(values=c("#45d9fd", "#ff5f2e")) + xlim(c(-10, 10)) +  #Ë∞ÉÊï¥ÁÇπÁöÑÈ¢úËâ≤ÂíåxËΩ¥ÁöÑÂèñÂÄºËåÉÂõ¥
+  geom_vline(xintercept=c(-cut_off_log2FoldChange,cut_off_log2FoldChange),lty=4,col="black",lwd=0.8) + #Ê∑ªÂä†xËΩ¥ËæÖÂä©Á∫ø,ltyÂáΩÊï∞Ë∞ÉÊï¥Á∫øÁöÑÁ±ªÂûãÔºö"twodash"„ÄÅ"longdash"„ÄÅ"dotdash"„ÄÅ"dotted"„ÄÅ"dashed"„ÄÅ"solid"„ÄÅ"blank"
+  geom_hline(yintercept = -log10(cut_off_padj), lty=4,col="black",lwd=0.8) +  #Ê∑ªÂä†yËΩ¥ËæÖÂä©Á∫ø
+  labs(x="log2FoldChange", y="-log10FDR") +  #x„ÄÅyËΩ¥Ê†áÁ≠æ
+  ggtitle("TRV:00 : TRV:GhGDH2") + #Ê†áÈ¢ò
+  theme_bw() + # ‰∏ªÈ¢òÔºåhelp(theme)Êü•ÊâæÂÖ∂‰ªñ‰∏™ÊÄßÂåñËÆæÁΩÆ
   theme(plot.title = element_text(hjust = 0.5),
         legend.position="right", 
         legend.title = element_blank())
 pl
 
-##GDH≥¡ƒ¨–ß¬ ÷˘◊¥Õº
+##GDHÊ≤âÈªòÊïàÁéáÊü±Áä∂Âõæ
 library(ggprism)
 library(ggplot2)
 library(data.table)
 library(ggpubr)
-expr1=fread("F:/new/new/GDH≥¡ƒ¨–ß¬ .txt",header=T,sep="\t")
+expr1=fread("F:/new/new/GDHÊ≤âÈªòÊïàÁéá.txt",header=T,sep="\t")
 ggbarplot(expr1,'group','mrna',fill = "black",add = "mean_sd",xlab = F,ylab = 'Relative mRNA expression',legend='none',ggtheme = theme_prism())+
-stat_compare_means(aes(label = ..p.signif..),  ## ∏ƒ≥…–«–«
-comparisons = list(c('TRV:00','TRV:GhGDH2')),  ## ÃÌº”“ªœ¬¡–±Ì
+stat_compare_means(aes(label = ..p.signif..),  ## ÊîπÊàêÊòüÊòü
+comparisons = list(c('TRV:00','TRV:GhGDH2')),  ## Ê∑ªÂä†‰∏Ä‰∏ãÂàóË°®
 method = 't.test')
 
 #MDA
@@ -94,34 +94,34 @@ library(ggprism)
 library(ggplot2)
 library(data.table)
 library(ggpubr)
-expr1=fread("F:/new/new/…˙¿Ì÷∏±Í/MDA.txt",header=T,sep="\t")
+expr1=fread("F:/new/new/ÁîüÁêÜÊåáÊ†á/MDA.txt",header=T,sep="\t")
 ggbarplot(expr1,x="treatment",y="MDA",color="group",fill="group",add = "mean_sd",xlab = F,ylab = "MDA cotent",ggtheme = theme_prism(), position = position_dodge(0.8),palette = c("grey","black"))+
 stat_compare_means(aes(group=group),method = "t.test")
-#“∂¬ÃÀÿa
+#Âè∂ÁªøÁ¥†a
 rm(list=ls())
-expr1=fread("F:/new/new/…˙¿Ì÷∏±Í/“∂¬ÃÀÿa.txt",header=T,sep="\t")
+expr1=fread("F:/new/new/ÁîüÁêÜÊåáÊ†á/Âè∂ÁªøÁ¥†a.txt",header=T,sep="\t")
 ggbarplot(expr1,x="treatment",y="chlorophyll A",color="group",fill="group",add = "mean_sd",xlab = F,ylab = "leaf chlorophyll-A content",ggtheme = theme_prism(), position = position_dodge(0.8),palette = c("grey","black"))+
   stat_compare_means(aes(group=group),method = "t.test",label = "p.signif")
-#“∂¬ÃÀÿB
+#Âè∂ÁªøÁ¥†B
 rm(list=ls())
-expr1=fread("F:/new/new/…˙¿Ì÷∏±Í/“∂¬ÃÀÿb.txt",header=T,sep="\t")
+expr1=fread("F:/new/new/ÁîüÁêÜÊåáÊ†á/Âè∂ÁªøÁ¥†b.txt",header=T,sep="\t")
 ggbarplot(expr1,x="treatment",y="chlorophyll b",color="group",fill="group",add = "mean_sd",xlab = F,ylab = "leaf chlorophyll-b content",ggtheme = theme_prism(), position = position_dodge(0.8),palette = c("grey","black"))+
   stat_compare_means(aes(group=group),method = "t.test",label = "p.signif")
-#◊‹“∂¬ÃÀÿ
+#ÊÄªÂè∂ÁªøÁ¥†
 rm(list=ls())
-expr1=fread("F:/new/new/…˙¿Ì÷∏±Í/◊‹“∂¬ÃÀÿ.txt",header=T,sep="\t")
+expr1=fread("F:/new/new/ÁîüÁêÜÊåáÊ†á/ÊÄªÂè∂ÁªøÁ¥†.txt",header=T,sep="\t")
 ggbarplot(expr1,x="treatment",y="chlorophyll",color="group",fill="group",add = "mean_sd",xlab = F,ylab = "leaf chlorophyll content",ggtheme = theme_prism(), position = position_dodge(0.8),palette = c("grey","black"))+
   stat_compare_means(aes(group=group),method = "t.test",label = "p.signif")
 #POD
 rm(list=ls())
-expr1=fread("F:/new/new/…˙¿Ì÷∏±Í/POD.txt",header=T,sep="\t")
+expr1=fread("F:/new/new/ÁîüÁêÜÊåáÊ†á/POD.txt",header=T,sep="\t")
 
 
-#¥¯”–ŒÛ≤Óœﬂµƒ’€œﬂÕº
+#Â∏¶ÊúâËØØÂ∑ÆÁ∫øÁöÑÊäòÁ∫øÂõæ
 rm(list=ls())
 library(ggprism)
 library(ggplot2)
 library(data.table)
 library(ggpubr)
-expr1=fread("F:/all1/GDH2±Ì¥Ô¡ø/200.txt",header=T,sep="\t")
+expr1=fread("F:/all1/GDH2Ë°®ËææÈáè/200.txt",header=T,sep="\t")
 ggline(expr1,x = "time",y = "expr",add = "mean_se",color="species",xlab = "time",ylab = "GhGDH2 expression")
