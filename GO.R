@@ -23,7 +23,7 @@ gene56763<-read.table("56763_2.txt", sep = "\t",header = T)
 egg56763=merge(gene56763,egg1,by="query_name")
 egg1<-egg56763
 dim(egg1)
-#效率高的方法
+#
 gene_ids <- egg1$query_name
 eggnog_lines_with_go <- egg1$GOs!= ""
 eggnog_lines_with_go
@@ -65,7 +65,7 @@ head(df1)
 class(df1)
 names(df1) <- c("ID","term")
 dff=merge(df1,df,by="ID")
-#将dff的替换df
+
 dff$term<-df1$term
 df2<-go2ont(dff$ID)
 dim(df2)
@@ -78,8 +78,8 @@ write.table(dff,"C:/Users/hr345/Desktop/all/GO/black/black2.GO.txt",sep = "\t")
 write.table(dff,"C:/Users/hr345/Desktop/all/GO/purple/purple2.GO.txt",sep = "\t")
 write.table(dff,"C:/Users/hr345/Desktop/all/GO/brown/brown2.GO.txt",sep = "\t")
 
-###6个模块GO富集热图
-aa=fread("C:/Users/hr345/Desktop/all/GO/6个模块合并GO结果.txt",header=T,sep="\t")
+##pheatmap
+aa=fread("C:/Users/hr345/Desktop/all/GO/GO results.txt",header=T,sep="\t")
 aa <- as.data.frame(aa)
 class(aa)
 rownames(aa)=aa$term
@@ -100,4 +100,3 @@ ggplot(df3[1:20,],aes(x=term,y=-log10(pvalue)))+
   geom_col(aes(fill=Ont))+
   coord_flip()+labs(x="")+
   theme_bw()
-
