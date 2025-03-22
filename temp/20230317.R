@@ -2,7 +2,7 @@ rm(list=ls())
 library(data.table)
 expr1=fread("C:/Users/hr345/Desktop/all/alltpm1.txt",header=T,sep="\t")
 sample=read.table("C:/Users/hr345/Desktop/all/allsample.txt",header=T,sep="\t")
-colnames(expr1)[1] <- 'sample'#Ω´sampleµƒµ⁄“ª¡–±‰≥…expr1µƒµ⁄“ª¡–
+colnames(expr1)[1] <- 'sample'#Â∞ÜsampleÁöÑÁ¨¨‰∏ÄÂàóÂèòÊàêexpr1ÁöÑÁ¨¨‰∏ÄÂàó
 aa=merge(sample,expr1,by="sample",sort=F)
 dim(aa)
 #[1]   234 75381
@@ -11,7 +11,7 @@ expr=t(aa[,-1:-5])
 dim(expr)
 #[1] 75376   234
 
-######ƒÕ—Œµƒª˘“Ú###
+######ËÄêÁõêÁöÑÂü∫Âõ†###
 keep=rowSums(expr>1) >= floor(0.5*ncol(expr))
 table(keep)
 #keep
@@ -26,7 +26,7 @@ dim(anno)
 #234 5
 
 
-#########∏˘+“∂
+#########Ê†π+Âè∂
 
 anno=anno[-92,]
 anno=anno[-162:-167,]
@@ -39,7 +39,7 @@ expr1_unique<-unique(expr1)
 dim(expr1_unique)
 class(expr1_unique)
 
-# ˜◊¥Õº
+#Ê†ëÁä∂Âõæ
 dists <- dist(expr1,method = "euclidean")
 hc <- hclust(dists, method = "ave")
 dend1 <- as.dendrogram(hc)
@@ -66,13 +66,13 @@ ggplot(pdat,aes(x=tSNE_1,y=tSNE_2,color=tissue,shape=tissue))+
   
 #PCA
 library(ggplot2)
-df_pca <- prcomp(log2(expr1+1)) #º∆À„÷˜≥…∑÷
+df_pca <- prcomp(log2(expr1+1)) #ËÆ°ÁÆó‰∏ªÊàêÂàÜ
 dim(expr1)
 anno$tissue<- factor(anno$tissue, levels=c("R","L"), ordered=TRUE)
 df_pcs <-data.frame(df_pca$x,tissue = anno$tissue)
-head(df_pcs,3)  #≤Èø¥÷˜≥…∑÷Ω·π˚
+head(df_pcs,3)  #Êü•Áúã‰∏ªÊàêÂàÜÁªìÊûú
 plot(df_pca$x[,1], df_pca$x[,2])
-#pdf("pca.log2norm413.pdf") #ø…“‘µ•∂¿ª≠ª≠
+#pdf("pca.log2norm413.pdf") #ÂèØ‰ª•ÂçïÁã¨ÁîªÁîª
 ggplot(df_pcs,aes(x=PC1,y=PC2,color=tissue,shape=tissue))+ geom_point() 
 percentage<-round(df_pca$sdev / sum(df_pca$sdev) * 100,2)
 percentage<-paste(colnames(df_pcs),"(", paste(as.character(percentage), "%", ")", sep=""))
@@ -90,16 +90,16 @@ library(umap)
 dim(expr1)
 expr1_unique<-unique(expr1)
 dim(expr1_unique)
-#  π”√umap∫Ø ˝Ω¯––UMAPΩµŒ¨∑÷Œˆ
+# ‰ΩøÁî®umapÂáΩÊï∞ËøõË°åUMAPÈôçÁª¥ÂàÜÊûê
 iris.umap = umap::umap(expr1_unique)
-# ≤Èø¥ΩµŒ¨∫ÛµƒΩ·π˚
+# Êü•ÁúãÈôçÁª¥ÂêéÁöÑÁªìÊûú
 head(iris.umap$layout)
 ##           [,1]     [,2]
 #SRR10426360 -3.447716 1.967124
 #SRR10426373 -3.613967 2.087851
 #SRR12077547 -4.925000 3.021000
 #SRR12077573 -4.894924 2.986124
-#  π”√plot∫Ø ˝ø… ”ªØUMAPµƒΩ·π˚]
+# ‰ΩøÁî®plotÂáΩÊï∞ÂèØËßÜÂåñUMAPÁöÑÁªìÊûú]
 pumap = data.frame(iris.umap$layout)
 pumap=cbind(pumap,anno$tissue)
 colnames(pumap) = c("UMAP_1","UMAP_2","tissue")
@@ -113,7 +113,7 @@ ggplot(pumap,aes(UMAP_1,UMAP_2,color=tissue,shape=tissue))+
   theme(axis.title.y = element_text(size = 15))+ scale_color_manual(values=c("#6a60a9","#f199bc"))
 
 
-#####∏˘◊ˆæ€¿‡   »•µÙ1∏ˆ—˘±æ
+#####Ê†πÂÅöËÅöÁ±ª   ÂéªÊéâ1‰∏™Ê†∑Êú¨
 
 anno=anno[-88:-198,]
 dim(anno)
@@ -125,8 +125,8 @@ expr1=expr1[-88:-198,]
 dim(expr1)
 #[1]   123 44918
 #T-SNE  tissue
-#µ⁄»˝¥Œ
-#87∏ˆ—˘±æ  ≈®∂»
+#Á¨¨‰∏âÊ¨°
+#87‰∏™Ê†∑Êú¨  ÊµìÂ∫¶
 expr1_unique<-unique(expr1)
 dim(expr1_unique)
 #[1]    123 44918
@@ -152,16 +152,16 @@ ggplot(pdat,aes(x=tSNE_1,y=tSNE_2,color=concentration,shape=accession))+
 #PCA
 ###PCA analysis
 library(ggplot2)
-df_pca <- prcomp(log2(expr1+1)) #º∆À„÷˜≥…∑÷
+df_pca <- prcomp(log2(expr1+1)) #ËÆ°ÁÆó‰∏ªÊàêÂàÜ
 dim(expr1)
 # 87 45140
 anno$concentration<- factor(anno$concentration, levels=c("0","150","200","salt-alkali","s0","sk","mock"), ordered=TRUE)
 anno$accession<- factor(anno$Accession, levels=c("T","S","TM-1"), ordered=TRUE)
 df_pcs <-data.frame(df_pca$x,concentration = anno$concentration,accession=anno$Accession)  
 
-head(df_pcs,3)  #≤Èø¥÷˜≥…∑÷Ω·π˚
+head(df_pcs,3)  #Êü•Áúã‰∏ªÊàêÂàÜÁªìÊûú
 plot(df_pca$x[,1], df_pca$x[,2])
-#pdf("pca.log2norm413.pdf") #ø…“‘µ•∂¿ª≠ª≠
+#pdf("pca.log2norm413.pdf") #ÂèØ‰ª•ÂçïÁã¨ÁîªÁîª
 ggplot(df_pcs,aes(x=PC1,y=PC2,color=concentration,shape=accession))+ geom_point()
 
 percentage<-round(df_pca$sdev / sum(df_pca$sdev) * 100,2)
@@ -182,16 +182,16 @@ library(umap)
 dim(expr1)
 expr1_unique<-unique(expr1)
 dim(expr1_unique)
-#  π”√umap∫Ø ˝Ω¯––UMAPΩµŒ¨∑÷Œˆ
+# ‰ΩøÁî®umapÂáΩÊï∞ËøõË°åUMAPÈôçÁª¥ÂàÜÊûê
 iris.umap = umap::umap(expr1_unique)
-# ≤Èø¥ΩµŒ¨∫ÛµƒΩ·π˚
+# Êü•ÁúãÈôçÁª¥ÂêéÁöÑÁªìÊûú
 head(iris.umap$layout)
 ##           [,1]     [,2]
 #SRR10426360 -3.447716 1.967124
 #SRR10426373 -3.613967 2.087851
 #SRR12077547 -4.925000 3.021000
 #SRR12077573 -4.894924 2.986124
-#  π”√plot∫Ø ˝ø… ”ªØUMAPµƒΩ·π˚]
+# ‰ΩøÁî®plotÂáΩÊï∞ÂèØËßÜÂåñUMAPÁöÑÁªìÊûú]
 pumap = data.frame(iris.umap$layout)
 
 pumap=cbind(pumap,anno$concentration,anno$accession)
@@ -210,7 +210,7 @@ ggplot(pumap,aes(UMAP_1,UMAP_2,color=concentration,shape=accession))+
 
 
 
-# ±º‰
+#Êó∂Èó¥
 tsne_out = Rtsne(expr1_unique,perplexity=30)
 pdat = data.frame(tsne_out$Y)
 pdat=cbind(pdat,anno$time,anno$accession)
@@ -232,7 +232,7 @@ ggplot(pdat,aes(x=tSNE_1,y=tSNE_2,color=time,shape=accession))+
 #99FFFF
 #PCA
 library(ggplot2)
-#df_pca <- prcomp(log2(expr1+1)) #º∆À„÷˜≥…∑÷
+#df_pca <- prcomp(log2(expr1+1)) #ËÆ°ÁÆó‰∏ªÊàêÂàÜ
 dim(expr1)
 # 162 75376
 anno$time<- factor(anno$time, levels=c("0h", "15m", "1h","3h","6h","12h","24h","48h",
@@ -240,9 +240,9 @@ anno$time<- factor(anno$time, levels=c("0h", "15m", "1h","3h","6h","12h","24h","
 anno$accession<- factor(anno$accession, levels=c("T","S","TM-1"), ordered=TRUE)
 df_pcs <-data.frame(df_pca$x,time = anno$time,accession=anno$accession)  
 
-head(df_pcs,3)  #≤Èø¥÷˜≥…∑÷Ω·π˚
+head(df_pcs,3)  #Êü•Áúã‰∏ªÊàêÂàÜÁªìÊûú
 plot(df_pca$x[,1], df_pca$x[,2])
-#pdf("pca.log2norm413.pdf") #ø…“‘µ•∂¿ª≠ª≠
+#pdf("pca.log2norm413.pdf") #ÂèØ‰ª•ÂçïÁã¨ÁîªÁîª
 ggplot(df_pcs,aes(x=PC1,y=PC2,color=time,shape=accession))+ geom_point()
 
 percentage<-round(df_pca$sdev / sum(df_pca$sdev) * 100,2)
@@ -265,16 +265,16 @@ library(umap)
 dim(expr1)
 expr1_unique<-unique(expr1)
 dim(expr1_unique)
-#  π”√umap∫Ø ˝Ω¯––UMAPΩµŒ¨∑÷Œˆ
+# ‰ΩøÁî®umapÂáΩÊï∞ËøõË°åUMAPÈôçÁª¥ÂàÜÊûê
 #iris.umap = umap::umap(expr1_unique)
-# ≤Èø¥ΩµŒ¨∫ÛµƒΩ·π˚
+# Êü•ÁúãÈôçÁª¥ÂêéÁöÑÁªìÊûú
 head(iris.umap$layout)
 ##           [,1]     [,2]
 #SRR10426360 -3.447716 1.967124
 #SRR10426373 -3.613967 2.087851
 #SRR12077547 -4.925000 3.021000
 #SRR12077573 -4.894924 2.986124
-#  π”√plot∫Ø ˝ø… ”ªØUMAPµƒΩ·π˚]
+# ‰ΩøÁî®plotÂáΩÊï∞ÂèØËßÜÂåñUMAPÁöÑÁªìÊûú]
 pumap = data.frame(iris.umap$layout)
 pumap=cbind(pumap,anno$time,anno$accession)
 colnames(pumap) = c("UMAP_1","UMAP_2","time","accession")
@@ -293,8 +293,8 @@ ggplot(pumap,aes(UMAP_1,UMAP_2,color=time,shape=accession))+
                                        "#a3daff","#1ec0ff","#0080ff","#4ea1d3","#eb9f9f","#bf209f","#6a60a9","#5c196b"))
 									   
 
-#œ‡πÿ–‘∑÷Œˆ
-#º∆À„æ‡¿Î
+#Áõ∏ÂÖ≥ÊÄßÂàÜÊûê
+#ËÆ°ÁÆóË∑ùÁ¶ª
 
 expr1=fread("C:/Users/hr345/Desktop/all/alltpm1.txt",header=T,sep="\t")
 
@@ -312,7 +312,7 @@ anno=sample
 dim(anno)
 #167 5
 
-#####∏˘◊ˆæ€¿‡   »•µÙ1∏ˆ—˘±æ
+#####Ê†πÂÅöËÅöÁ±ª   ÂéªÊéâ1‰∏™Ê†∑Êú¨
 anno=sample[-88:-198,]
 
 dim(anno)
@@ -330,7 +330,7 @@ expr1_unique=expr1
 row.names(expr1_unique)=anno$time
 sample_cor <- cor(t(expr1_unique))
 sample_cor1 <- round(sample_cor, digits = 2)
-#ª≠Õº
+#ÁîªÂõæ
 library(pheatmap)
 pheatmap(sample_cor1, display_numbers = F,fontsize = 10, angle_col = 90,
          cluster_rows = F,cluster_cols = F,show_rownames = T,show_colnames = T,
@@ -348,7 +348,7 @@ plot(sample_hc)
 
 ########WGCNA
 
-###########∏˘
+###########Ê†π
 rm(list=ls())
 library(data.table)
 expr1=fread("C:/Users/hr345/Desktop/all/alltpm1.txt",header=T,sep="\t")
@@ -363,7 +363,7 @@ dim(expr)
 anno=sample
 dim(anno)
 #234 5
-#####∏˘◊ˆæ€¿‡   »•µÙ1∏ˆ—˘±æ
+#####Ê†πÂÅöËÅöÁ±ª   ÂéªÊéâ1‰∏™Ê†∑Êú¨
 anno=sample[-88:-198,]
 
 dim(anno)
@@ -387,7 +387,7 @@ dim(expr)
 #[1] 46986    87
 row.names(expr)= gsub("[.][0-9].v2.1","",row.names(expr))
 TF=read.table('C:/Users/hr345/Desktop/all/tf.txt',header=F,sep="\t")
-#####“ª¡–ª˘“ÚID
+#####‰∏ÄÂàóÂü∫Âõ†ID
 cc1=intersect(TF$V1,row.names(expr))
 #50% >0   TF  4047/5036   gene    59710/75376
 
@@ -445,7 +445,7 @@ multiExpr<-filterMultiExpr(multiExpr,nSets)
 # $nSamples [1] 123
 # $structureOK [1] TRUE
 shortLabels="All"
-save(expr, coldata, multiExpr,  file="C:/Users/–‹œ‘≈Ù/◊¿√Ê/salt/Rtemp59712.rdata")
+save(expr, coldata, multiExpr,  file="C:/Users/ÁÜäÊòæÈπè/Ê°åÈù¢/salt/Rtemp59712.rdata")
 
 ## Choose a set of soft-thresholding powers, consider three type of adjacnecy tables, although I am going to use "signed" network for this analysis
 # types<-c("unsigned", "signed", "signed hybrid")
@@ -516,7 +516,7 @@ for(type in c("unsigned", "signed", "signed hybrid"))
 }
 
 powers=c(12,16,24)
-save(expr, multiExpr, powerTables, powers, file = "C:/Users/–‹œ‘≈Ù/◊¿√Ê/salt/wgcna.TPM.59712.prep.Rdata")
+save(expr, multiExpr, powerTables, powers, file = "C:/Users/ÁÜäÊòæÈπè/Ê°åÈù¢/salt/wgcna.TPM.59712.prep.Rdata")
 
 
 for(corM in c("bicor","pearson")){
@@ -554,13 +554,13 @@ for(corM in c("bicor","pearson")){
 
 
 
-# 34672 genes    ÷±Ω””√’‚∏ˆ≈‹∫Û√Êµƒ
+# 34672 genes    Áõ¥Êé•Áî®Ëøô‰∏™Ë∑ëÂêéÈù¢ÁöÑ
 library(RColorBrewer)
 library(flashClust)
 library(WGCNA)
-load("C:/Users/–‹œ‘≈Ù/◊¿√Ê/salt/root87WGCNA/34672/Rtemp34672.rdata")
-load("C:/Users/–‹œ‘≈Ù/◊¿√Ê/salt/root87WGCNA/34672/wgcna.34672cgn.Rdata")
-load("C:/Users/–‹œ‘≈Ù/◊¿√Ê/salt/root87WGCNA/34672/wgcna.TPM.34672.prep.Rdata")
+load("C:/Users/ÁÜäÊòæÈπè/Ê°åÈù¢/salt/root87WGCNA/34672/Rtemp34672.rdata")
+load("C:/Users/ÁÜäÊòæÈπè/Ê°åÈù¢/salt/root87WGCNA/34672/wgcna.34672cgn.Rdata")
+load("C:/Users/ÁÜäÊòæÈπè/Ê°åÈù¢/salt/root87WGCNA/34672/wgcna.TPM.34672.prep.Rdata")
 
 ls()
 i="cgnP30p"
@@ -589,8 +589,8 @@ plotEigengeneNetworks(MET, "Eigengene adjacency heatmap", marHeatmap = c(3,4,2,2
 dev.off()
 
 
-#µ⁄∂˛÷÷
-datTraits=read.table("C:/E≈Ã/≤© ø∫Ûµ⁄“ª∏ˆœÓƒø/◊Ó–¬µƒ1019/20211027TPM/1110/Datatraits1.txt",header=T,sep="\t",row.names = 1)
+#Á¨¨‰∫åÁßç
+datTraits=read.table("C:/EÁõò/ÂçöÂ£´ÂêéÁ¨¨‰∏Ä‰∏™È°πÁõÆ/ÊúÄÊñ∞ÁöÑ1019/20211027TPM/1110/Datatraits1.txt",header=T,sep="\t",row.names = 1)
 nGenes = ncol(datExpr)
 nSamples = nrow(datExpr)
 moduleTraitCor1 = cor(MEs, datTraits, use = "p")
@@ -643,7 +643,7 @@ c=data.frame(cbind(apply(MEs1[,5:7],1,mean),
 
 class(c)
 #[1] "data.frame"
-#–ﬁ∏ƒ––√˚
+#‰øÆÊîπË°åÂêç
 names(c) <- c("a", "b", "c","d","e","f","g","h","i","j","k","l","m","n","o1",
               "a1", "b1", "c1","d1","e1","f1","g1","h1","i1","j1","k1","l1","m1","n1","o1")
 
@@ -659,7 +659,7 @@ c$module=c("black(624)","blue(2565)","brown(1499)","cyan(187)","green(624)",
 c <- c[, c("module","a", "b", "c","d","e","f","g","h","i","j","k","l","m","n","o1",
            "a1", "b1", "c1","d1","e1","f1","g1","h1","i1","j1","k1","l1","m1","n1","o1")]
 
-anno=read.table("C:/Users/–‹œ‘≈Ù/◊¿√Ê/salt/root87/34672/87.Sample.information.2.txt",header=T,sep="\t")
+anno=read.table("C:/Users/ÁÜäÊòæÈπè/Ê°åÈù¢/salt/root87/34672/87.Sample.information.2.txt",header=T,sep="\t")
 Period=anno[,-1]
 #names(Period)="time"
 head(Period)
@@ -667,10 +667,10 @@ head(Period)
 #1 Elongation 5dpa
 class(Period)
 dim(Period)
-#anno11=data.frame(Period) ∑« ˝÷µ–Ë“™◊™÷√
+#anno11=data.frame(Period) ÈùûÊï∞ÂÄºÈúÄË¶ÅËΩ¨ÁΩÆ
 
 
-#per=read.table("C:/E≈Ã/≤© ø∫Ûµ⁄“ª∏ˆœÓƒø/◊Ó–¬µƒ1019/20211027TPM/1110/0420/»»Õº/MEs.4.txt",header=T, sep="\t")
+#per=read.table("C:/EÁõò/ÂçöÂ£´ÂêéÁ¨¨‰∏Ä‰∏™È°πÁõÆ/ÊúÄÊñ∞ÁöÑ1019/20211027TPM/1110/0420/ÁÉ≠Âõæ/MEs.4.txt",header=T, sep="\t")
 per=c
 dat2 <- per[,-1]*10
 rownames(Period) = rownames(t(dat2))
@@ -744,9 +744,9 @@ pheatmap(dat2,annotation_col = Period,
 library(WGCNA);
 library(RColorBrewer)
 library(flashClust);
-load("C:/Users/–‹œ‘≈Ù/◊¿√Ê/salt/root87/34672/Rtemp34672.rdata")
-load("C:/Users/–‹œ‘≈Ù/◊¿√Ê/salt/root87/34672/wgcna.34672cgn.Rdata")
-load("C:/Users/–‹œ‘≈Ù/◊¿√Ê/salt/root87/34672/wgcna.TPM.34672.prep.Rdata")
+load("C:/Users/ÁÜäÊòæÈπè/Ê°åÈù¢/salt/root87/34672/Rtemp34672.rdata")
+load("C:/Users/ÁÜäÊòæÈπè/Ê°åÈù¢/salt/root87/34672/wgcna.34672cgn.Rdata")
+load("C:/Users/ÁÜäÊòæÈπè/Ê°åÈù¢/salt/root87/34672/wgcna.TPM.34672.prep.Rdata")
 
 ls()
 i="cgnP30p"
@@ -804,7 +804,7 @@ c=data.frame(cbind(apply(MEs1[,5:7],1,mean),
 
 class(c)
 #[1] "data.frame"
-#–ﬁ∏ƒ––√˚
+#‰øÆÊîπË°åÂêç
 names(c) <- c("a", "b", "c","d","e","f","g","h","i","j","k","l","m","n","o1",
               "a1", "b1", "c1","d1","e1","f1","g1","h1","i1","j1","k1","l1","m1","n1","o1")
 
@@ -820,7 +820,7 @@ c$module=c("black(624)","blue(2565)","brown(1499)","cyan(187)","green(624)",
 c <- c[, c("module","a", "b", "c","d","e","f","g","h","i","j","k","l","m","n","o1",
            "a1", "b1", "c1","d1","e1","f1","g1","h1","i1","j1","k1","l1","m1","n1","o1")]
 
-anno=read.table("C:/Users/–‹œ‘≈Ù/◊¿√Ê/salt/root87/34672/87.Sample.information.2.txt",header=T,sep="\t")
+anno=read.table("C:/Users/ÁÜäÊòæÈπè/Ê°åÈù¢/salt/root87/34672/87.Sample.information.2.txt",header=T,sep="\t")
 Period=anno[,-1]
 #names(Period)="time"
 head(Period)
@@ -828,10 +828,10 @@ head(Period)
 #1 Elongation 5dpa
 class(Period)
 dim(Period)
-#anno11=data.frame(Period) ∑« ˝÷µ–Ë“™◊™÷√
+#anno11=data.frame(Period) ÈùûÊï∞ÂÄºÈúÄË¶ÅËΩ¨ÁΩÆ
 
 
-#per=read.table("C:/E≈Ã/≤© ø∫Ûµ⁄“ª∏ˆœÓƒø/◊Ó–¬µƒ1019/20211027TPM/1110/0420/»»Õº/MEs.4.txt",header=T, sep="\t")
+#per=read.table("C:/EÁõò/ÂçöÂ£´ÂêéÁ¨¨‰∏Ä‰∏™È°πÁõÆ/ÊúÄÊñ∞ÁöÑ1019/20211027TPM/1110/0420/ÁÉ≠Âõæ/MEs.4.txt",header=T, sep="\t")
 per=c
 dat2 <- per[,-1]*10
 rownames(Period) = rownames(t(dat2))
@@ -903,7 +903,7 @@ pheatmap(dat2,annotation_col = Period,
 
 
 
-#pdf µº≥ˆ
+#pdf ÂØºÂá∫
 library(RColorBrewer)
 display.brewer.all() 
 
