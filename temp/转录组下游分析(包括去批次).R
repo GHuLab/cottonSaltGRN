@@ -1,21 +1,21 @@
-########################################Ò¶£¨Ê±¼ä+Æ·ÖÖ£©
+########################################å¶ï¼ˆæ—¶é—´+å“ç§ï¼‰
 rm(list=ls())
 library(data.table)
 expr1=fread("C:/Users/hr345/Desktop/all/alltpm1.txt",header=T,sep="\t")
-sample =fread("C:/Users/hr345/Desktop/all/E¸÷Ààsample/sample(final).txt",header=T,sep="\t")
+sample =fread("C:/Users/hr345/Desktop/all/Eå„ç±»sample/sample(final).txt",header=T,sep="\t")
 colnames(expr1)[1] <- 'SRR'
 aa=merge(sample,expr1,by="SRR",sort=F)
 dim(aa)
 #[1]   234 75382
 rownames(aa)=aa$SRR
-expr=t(aa[,-1:-6]) #batch:Åú´Î
+expr=t(aa[,-1:-6]) #batch:æ‰¹æ¬¡
 dim(expr)
 #[1] 75376   170
 anno=sample
 dim(anno)
 #234 6
 
-#####Ò¶   È¥µôÃ÷ÏÔÀëÈºÑù±¾
+#####å¶   å»æ‰æ˜æ˜¾ç¦»ç¾¤æ ·æœ¬
 anno=anno[-140,]
 anno=anno[-197:-202,]
 anno=anno[-1:-123,]
@@ -40,15 +40,15 @@ expr1=t(expr)
 
 #PCA
 library(ggplot2)
-df_pca <- prcomp(log2(expr1+1)) #¼ÆËãÖ÷³É·Ö
+df_pca <- prcomp(log2(expr1+1)) #è®¡ç®—ä¸»æˆåˆ†
 dim(expr1)
 # 162 75376
 anno$time<- factor(anno$time, levels=c("0h", "1h","3h","4h","6h","12h","24h","48h","2w","mock"), ordered=TRUE)
 anno$Accession<- factor(anno$Accession, levels=c("T","S","TM-1"), ordered=TRUE)
 df_pcs <-data.frame(df_pca$x,time = anno$time,Accession=anno$Accession)  
-head(df_pcs,3)  #²é¿´Ö÷³É·Ö½á¹û
+head(df_pcs,3)  #æŸ¥çœ‹ä¸»æˆåˆ†ç»“æœ
 plot(df_pca$x[,1], df_pca$x[,2])
-#pdf("pca.log2norm413.pdf") #¿ÉÒÔµ¥¶À»­»­
+#pdf("pca.log2norm413.pdf") #å¯ä»¥å•ç‹¬ç”»ç”»
 ggplot(df_pcs,aes(x=PC1,y=PC2,color=time,shape=Accession))+ geom_point()
 
 percentage<-round(df_pca$sdev / sum(df_pca$sdev) * 100,2)
@@ -100,7 +100,7 @@ ggplot(pumap,aes(UMAP_1,UMAP_2,color=time,shape=Accession))+
   theme(axis.title.y = element_text(size = 15))+ 
   scale_color_manual(values=c("#a3daff","#1ec0ff","#0080ff","#4ea1d3","#ede574","#f8ca00","#fc913a","#ff4e50","#cbe86b","#3b8686"))
 									   
-###È¥Åú´Î
+###å»æ‰¹æ¬¡
 anno$batch<- factor(anno$batch, levels=c("PRJNA531727","PRJNA601953","PRJNA623201","PRJNA722118","PRJNA253112","PRJNA248163","PRJNA490626"), ordered=TRUE)
 ad.batch =  factor(anno$batch, levels=c("PRJNA531727","PRJNA601953","PRJNA623201","PRJNA722118","PRJNA253112","PRJNA248163","PRJNA490626"), ordered=TRUE)
 dim(ad.batch)
@@ -122,7 +122,7 @@ ad.rBE <- t(removeBatchEffect(t(ad.clr), batch = anno$batch,design = ad.mod))
 library(gridExtra)
 library("ggpubr")
 library(ggplot2)
-df_pca <- prcomp(ad.rBE) #¼ÆËãÖ÷³É·Ö
+df_pca <- prcomp(ad.rBE) #è®¡ç®—ä¸»æˆåˆ†
 dim(ad.rBE)
 #104 75376
 dim(expr1)
@@ -131,9 +131,9 @@ anno$time<- factor(anno$time, levels=c("0h", "1h","3h","4h","6h","12h","24h","48
 anno$Accession<- factor(anno$Accession, levels=c("T","S","TM-1"), ordered=TRUE)
 df_pcs <-data.frame(df_pca$x,time = anno$time,Accession=anno$Accession)  
 
-head(df_pcs,3)  #²é¿´Ö÷³É·Ö½á¹û
+head(df_pcs,3)  #æŸ¥çœ‹ä¸»æˆåˆ†ç»“æœ
 plot(df_pca$x[,1], df_pca$x[,2])
-#pdf("pca.log2norm413.pdf") #¿ÉÒÔµ¥¶À»­»­
+#pdf("pca.log2norm413.pdf") #å¯ä»¥å•ç‹¬ç”»ç”»
 ggplot(df_pcs,aes(x=PC1,y=PC2,color=time,shape=Accession))+ geom_point()
 
 percentage<-round(df_pca$sdev / sum(df_pca$sdev) * 100,2)
@@ -186,7 +186,7 @@ ggplot(pumap,aes(UMAP_1,UMAP_2,color=time,shape=Accession))+
   scale_color_manual(values=c("#a3daff","#1ec0ff","#0080ff","#4ea1d3","#ede574","#f8ca00","#fc913a","#ff4e50","#cbe86b","#3b8686"))
 
 
-#####µÚ¶şÖÖ·½·¨
+#####ç¬¬äºŒç§æ–¹æ³•
 #if (!require("BiocManager", quietly = TRUE))
   #install.packages("BiocManager")
 
@@ -195,7 +195,7 @@ library(sva)
 ad.ComBat <- t(ComBat(t(ad.clr), batch = anno$batch))
 
 #PCA
-df_pca <- prcomp(ad.ComBat) #¼ÆËãÖ÷³É·Ö
+df_pca <- prcomp(ad.ComBat) #è®¡ç®—ä¸»æˆåˆ†
 dim(ad.ComBat)
 #104 75376
 dim(expr1)
@@ -204,9 +204,9 @@ anno$time<- factor(anno$time, levels=c("0h", "1h","3h","4h","6h","12h","24h","48
 anno$Accession<- factor(anno$Accession, levels=c("T","S","TM-1"), ordered=TRUE)
 df_pcs <-data.frame(df_pca$x,time = anno$time,Accession=anno$Accession)  
 
-head(df_pcs,3)  #²é¿´Ö÷³É·Ö½á¹û
+head(df_pcs,3)  #æŸ¥çœ‹ä¸»æˆåˆ†ç»“æœ
 plot(df_pca$x[,1], df_pca$x[,2])
-#pdf("pca.log2norm413.pdf") #¿ÉÒÔµ¥¶À»­»­
+#pdf("pca.log2norm413.pdf") #å¯ä»¥å•ç‹¬ç”»ç”»
 ggplot(df_pcs,aes(x=PC1,y=PC2,color=time,shape=Accession))+ geom_point()
 
 percentage<-round(df_pca$sdev / sum(df_pca$sdev) * 100,2)
@@ -259,24 +259,24 @@ ggplot(pumap,aes(UMAP_1,UMAP_2,color=time,shape=Accession))+
   scale_color_manual(values=c("#a3daff","#1ec0ff","#0080ff","#4ea1d3","#ede574","#f8ca00","#fc913a","#ff4e50","#cbe86b","#3b8686"))
 
 
-###########Ò¶£¨Åú´Î£©
+###########å¶ï¼ˆæ‰¹æ¬¡ï¼‰
 rm(list=ls())
 library(data.table)
 expr1=fread("C:/Users/hr345/Desktop/all/alltpm1.txt",header=T,sep="\t")
-sample=fread("C:/Users/hr345/Desktop/all/E¸÷Ààsample/sample(final).txt",header=T,sep="\t")
+sample=fread("C:/Users/hr345/Desktop/all/Eå„ç±»sample/sample(final).txt",header=T,sep="\t")
 colnames(expr1)[1] <- 'SRR'
 aa=merge(sample,expr1,by="SRR",sort=F)
 dim(aa)
 #[1]   234 75382
 rownames(aa)=aa$SRR
-expr=t(aa[,-1:-6]) #batch:Åú´Î
+expr=t(aa[,-1:-6]) #batch:æ‰¹æ¬¡
 dim(expr)
 #[1] 75376   170
 anno=sample
 dim(anno)
 #234 6
 
-#####Ò¶   È¥µôÃ÷ÏÔÀëÈºÑù±¾
+#####å¶   å»æ‰æ˜æ˜¾ç¦»ç¾¤æ ·æœ¬
 anno=anno[-140,]
 anno=anno[-197:-202,]
 anno=anno[-1:-123,]
@@ -298,16 +298,16 @@ table(keep)
 expr <- expr[keep,]
 dim(expr)
 expr1=t(expr)
-##Î´È¥Åú´Î
+##æœªå»æ‰¹æ¬¡
 library(ggplot2)
-df_pca <- prcomp(log2(expr1+1)) #¼ÆËãÖ÷³É·Ö
+df_pca <- prcomp(log2(expr1+1)) #è®¡ç®—ä¸»æˆåˆ†
 dim(expr1)
 # 162 75376
 anno$batch<- factor(anno$batch, levels=c("PRJNA531727","PRJNA601953","PRJNA623201","PRJNA722118","PRJNA253112","PRJNA248163","PRJNA490626"), ordered=TRUE)
 df_pcs <-data.frame(df_pca$x,batch = anno$batch)  
-head(df_pcs,3)  #²é¿´Ö÷³É·Ö½á¹û
+head(df_pcs,3)  #æŸ¥çœ‹ä¸»æˆåˆ†ç»“æœ
 plot(df_pca$x[,1], df_pca$x[,2])
-#pdf("pca.log2norm413.pdf") #¿ÉÒÔµ¥¶À»­»­
+#pdf("pca.log2norm413.pdf") #å¯ä»¥å•ç‹¬ç”»ç”»
 ggplot(df_pcs,aes(x=PC1,y=PC2,color=batch))+ geom_point()
 
 percentage<-round(df_pca$sdev / sum(df_pca$sdev) * 100,2)
@@ -323,7 +323,7 @@ ggplot(df_pcs,aes(x=PC1,y=PC2,color=batch))+
   scale_color_manual(values=c("#a3daff","#1ec0ff","#0080ff","#fc913a","#ff4e50","#cbe86b","#3b8686"))
 
 
-#È¥Åú´Î
+#å»æ‰¹æ¬¡
 anno$batch<- factor(anno$batch, levels=c("PRJNA531727","PRJNA601953","PRJNA623201","PRJNA722118","PRJNA253112","PRJNA248163","PRJNA490626"), ordered=TRUE)
 ad.batch =  factor(anno$batch, levels=c("PRJNA531727","PRJNA601953","PRJNA623201","PRJNA722118","PRJNA253112","PRJNA248163","PRJNA490626"), ordered=TRUE)
 dim(ad.batch)
@@ -341,16 +341,16 @@ ad.rBE <- t(removeBatchEffect(t(ad.clr), batch = anno$batch,design = ad.mod))
 library(gridExtra)
 library("ggpubr")
 library(ggplot2)
-df_pca <- prcomp(ad.rBE) #¼ÆËãÖ÷³É·Ö
+df_pca <- prcomp(ad.rBE) #è®¡ç®—ä¸»æˆåˆ†
 dim(ad.rBE)
 #104 75376
 dim(expr1)
 #104 75376
 anno$batch<- factor(anno$batch, levels=c("PRJNA531727","PRJNA601953","PRJNA623201","PRJNA722118","PRJNA253112","PRJNA248163","PRJNA490626"), ordered=TRUE)
 df_pcs <-data.frame(df_pca$x,batch = anno$batch)  
-head(df_pcs,3)  #²é¿´Ö÷³É·Ö½á¹û
+head(df_pcs,3)  #æŸ¥çœ‹ä¸»æˆåˆ†ç»“æœ
 plot(df_pca$x[,1], df_pca$x[,2])
-#pdf("pca.log2norm413.pdf") #¿ÉÒÔµ¥¶À»­»­
+#pdf("pca.log2norm413.pdf") #å¯ä»¥å•ç‹¬ç”»ç”»
 ggplot(df_pcs,aes(x=PC1,y=PC2,color=batch))+ geom_point()
 percentage<-round(df_pca$sdev / sum(df_pca$sdev) * 100,2)
 percentage<-paste(colnames(df_pcs),"(", paste(as.character(percentage), "%", ")", sep=""))
@@ -367,7 +367,7 @@ ggplot(df_pcs,aes(x=PC1,y=PC2,color=batch))+
 #combat
 library(sva)
 ad.ComBat <- t(ComBat(t(ad.clr), batch = anno$batch))
-df_pca <- prcomp(ad.ComBat) #¼ÆËãÖ÷³É·Ö
+df_pca <- prcomp(ad.ComBat) #è®¡ç®—ä¸»æˆåˆ†
 dim(ad.ComBat)
 #104 75376
 dim(expr1)
@@ -375,9 +375,9 @@ dim(expr1)
 anno$batch<- factor(anno$batch, levels=c("PRJNA531727","PRJNA601953","PRJNA623201","PRJNA722118","PRJNA253112","PRJNA248163","PRJNA490626"), ordered=TRUE)
 df_pcs <-data.frame(df_pca$x,batch = anno$batch)  
 
-head(df_pcs,3)  #²é¿´Ö÷³É·Ö½á¹û
+head(df_pcs,3)  #æŸ¥çœ‹ä¸»æˆåˆ†ç»“æœ
 plot(df_pca$x[,1], df_pca$x[,2])
-#pdf("pca.log2norm413.pdf") #¿ÉÒÔµ¥¶À»­»­
+#pdf("pca.log2norm413.pdf") #å¯ä»¥å•ç‹¬ç”»ç”»
 ggplot(df_pcs,aes(x=PC1,y=PC2,color=batch))+ geom_point()
 
 percentage<-round(df_pca$sdev / sum(df_pca$sdev) * 100,2)
@@ -397,18 +397,18 @@ ggplot(df_pcs,aes(x=PC1,y=PC2,color=batch))+
 
 
 
-###########¸ù£¨Ê±¼ä+Æ·ÖÖ£©
+###########æ ¹ï¼ˆæ—¶é—´+å“ç§ï¼‰
 rm(list=ls())
 library(data.table)
 expr1=fread("C:/Users/hr345/Desktop/all/alltpm1.txt",header=T,sep="\t")
 library(xlsx)
-sample <- read.xlsx("C:/Users/hr345/Desktop/all/E¸÷Ààsample/sample£¨È¥Åú´Î£©.xlsx",1,encoding="UTF-8")
+sample <- read.xlsx("C:/Users/hr345/Desktop/all/Eå„ç±»sample/sampleï¼ˆå»æ‰¹æ¬¡ï¼‰.xlsx",1,encoding="UTF-8")
 colnames(expr1)[1] <- 'SRR'
 aa=merge(sample,expr1,by="SRR",sort=F)
 dim(aa)
 #[1]   234 75382
 rownames(aa)=aa$SRR
-expr=t(aa[,-1:-6]) #batch:Åú´Î
+expr=t(aa[,-1:-6]) #batch:æ‰¹æ¬¡
 dim(expr)
 #[1] 75376   170
 
@@ -433,7 +433,7 @@ expr1=t(expr)
 
 #PCA
 library(ggplot2)
-df_pca <- prcomp(log2(expr1+1)) #¼ÆËãÖ÷³É·Ö
+df_pca <- prcomp(log2(expr1+1)) #è®¡ç®—ä¸»æˆåˆ†
 dim(expr1)
 anno$time<- factor(anno$time, levels=c("0h", "15min", "1h","3h","6h","12h","24h","48h","72h"), ordered=TRUE)
 anno$Accession<- factor(anno$Accession, levels=c("T","S","TM-1"), ordered=TRUE)
@@ -489,7 +489,7 @@ ggplot(pumap,aes(UMAP_1,UMAP_2,color=time,shape=Accession))+
   theme(axis.title.y = element_text(size = 15))+ 
   scale_color_manual(values=c("#fbd14b","#f26d5b","#c03546","#77919d","#5e5e5f","#88dba3","#60c5ba","#cbe86b","#4f953b","#1ec0ff","#0080ff","#4ea1d3","#eb9f9f","#bf209f","#6a60a9","#5c196b"))
 
-###È¥Åú´Î	 
+###å»æ‰¹æ¬¡	 
 anno$time<- factor(anno$time, levels=c("0h", "15min", "1h","3h","6h","12h","24h","48h","72h"), ordered=TRUE)
 anno$batch<- factor(anno$batch, levels=c("1","8","9","11"), ordered=TRUE)
 ad.batch =  factor(anno$batch, levels=c("1","8","9","11"), ordered=TRUE)
@@ -512,16 +512,16 @@ ad.rBE <- t(removeBatchEffect(t(ad.clr), batch = anno$batch,design = ad.mod))
 library(gridExtra)
 library("ggpubr")
 library(ggplot2)
-df_pca <- prcomp(ad.rBE) #¼ÆËãÖ÷³É·Ö
+df_pca <- prcomp(ad.rBE) #è®¡ç®—ä¸»æˆåˆ†
 dim(ad.rBE)
 dim(expr1)
 anno$time<- factor(anno$time, levels=c("0h", "15min", "1h","3h","6h","12h","24h","48h","72h"), ordered=TRUE)
 anno$Accession<- factor(anno$Accession, levels=c("T","S","TM-1"), ordered=TRUE)
 df_pcs <-data.frame(df_pca$x,time = anno$time,Accession=anno$Accession)  
 
-head(df_pcs,3)  #²é¿´Ö÷³É·Ö½á¹û
+head(df_pcs,3)  #æŸ¥çœ‹ä¸»æˆåˆ†ç»“æœ
 plot(df_pca$x[,1], df_pca$x[,2])
-#pdf("pca.log2norm413.pdf") #¿ÉÒÔµ¥¶À»­»­
+#pdf("pca.log2norm413.pdf") #å¯ä»¥å•ç‹¬ç”»ç”»
 ggplot(df_pcs,aes(x=PC1,y=PC2,color=time,shape=Accession))+ geom_point()
 head(df_pcs,3)
 plot(df_pca$x[,1], df_pca$x[,2])
@@ -576,20 +576,20 @@ ggplot(pumap,aes(UMAP_1,UMAP_2,color=time,shape=Accession))+
         legend.text=element_text(size=15)) +theme(axis.title.x = element_text(size = 15)) +
   theme(axis.title.y = element_text(size = 15))+ scale_color_manual(values=c("#fbd14b","#f26d5b","#c03546","#77919d","#5e5e5f","#88dba3","#60c5ba","#cbe86b","#4f953b","#1ec0ff","#0080ff","#4ea1d3","#eb9f9f","#bf209f","#6a60a9","#5c196b"))
 
-#combatÈ¥Åú´Î
+#combatå»æ‰¹æ¬¡
 library(sva)
 ad.ComBat <- t(ComBat(t(ad.clr), batch = anno$batch))
 
 #PCA
-df_pca <- prcomp(ad.ComBat) #¼ÆËãÖ÷³É·Ö
+df_pca <- prcomp(ad.ComBat) #è®¡ç®—ä¸»æˆåˆ†
 dim(ad.ComBat)
 dim(expr1)
 anno$time<- factor(anno$time, levels=c("0h", "15min", "1h","3h","6h","12h","24h","48h","72h"), ordered=TRUE)
 anno$Accession<- factor(anno$Accession, levels=c("T","S","TM-1"), ordered=TRUE)
 df_pcs <-data.frame(df_pca$x,time = anno$time,Accession=anno$Accession)
-head(df_pcs,3)  #²é¿´Ö÷³É·Ö½á¹û
+head(df_pcs,3)  #æŸ¥çœ‹ä¸»æˆåˆ†ç»“æœ
 plot(df_pca$x[,1], df_pca$x[,2])
-#pdf("pca.log2norm413.pdf") #¿ÉÒÔµ¥¶À»­»­
+#pdf("pca.log2norm413.pdf") #å¯ä»¥å•ç‹¬ç”»ç”»
 ggplot(df_pcs,aes(x=PC1,y=PC2,color=time,shape=Accession))+ geom_point()
 
 percentage<-round(df_pca$sdev / sum(df_pca$sdev) * 100,2)
@@ -642,20 +642,20 @@ ggplot(pumap,aes(UMAP_1,UMAP_2,color=time,shape=Accession))+
         legend.text=element_text(size=15)) +theme(axis.title.x = element_text(size = 15)) +
   theme(axis.title.y = element_text(size = 15))+ scale_color_manual(values=c("#fbd14b","#f26d5b","#c03546","#88dba3","#a5dff9","#1ec0ff","#0080ff","#4ea1d3","#2b90d9"))
 
-########################################¸ù£¨Å¨¶È+Æ·ÖÖ£©
+########################################æ ¹ï¼ˆæµ“åº¦+å“ç§ï¼‰
 
 rm(list=ls())
 library(data.table)
 expr1=fread("C:/Users/hr345/Desktop/all/alltpm1.txt",header=T,sep="\t")
 library(xlsx)
-sample <- read.xlsx("C:/Users/hr345/Desktop/all/E¸÷Ààsample/sample£¨È¥Åú´Î£©.xlsx",1,encoding="UTF-8")
-#sample <- read.xlsx("C:/Users/hr345/Desktop/all/E¸÷Ààsample/sample£¨È¥Åú´Î£©2.xlsx",1,encoding="UTF-8")
+sample <- read.xlsx("C:/Users/hr345/Desktop/all/Eå„ç±»sample/sampleï¼ˆå»æ‰¹æ¬¡ï¼‰.xlsx",1,encoding="UTF-8")
+#sample <- read.xlsx("C:/Users/hr345/Desktop/all/Eå„ç±»sample/sampleï¼ˆå»æ‰¹æ¬¡ï¼‰2.xlsx",1,encoding="UTF-8")
 colnames(expr1)[1] <- 'SRR'
 aa=merge(sample,expr1,by="SRR",sort=F)
 dim(aa)
 #[1]   234 75382
 rownames(aa)=aa$SRR
-expr=t(aa[,-1:-6]) #batch:Åú´Î
+expr=t(aa[,-1:-6]) #batch:æ‰¹æ¬¡
 dim(expr)
 
 anno=sample
@@ -702,15 +702,15 @@ ad.rBE <- t(removeBatchEffect(t(ad.clr), batch = anno$batch,design = ad.mod))
 library(gridExtra)
 library("ggpubr")
 library(ggplot2)
-df_pca <- prcomp(ad.rBE) #¼ÆËãÖ÷³É·Ö
+df_pca <- prcomp(ad.rBE) #è®¡ç®—ä¸»æˆåˆ†
 dim(ad.rBE)
 dim(expr1)
 anno$concentration<- factor(anno$concentration, levels=c("0","150","200","salt-alkali","sk","mock"), ordered=TRUE)
 anno$Accession<- factor(anno$Accession, levels=c("T","S","TM-1"), ordered=TRUE)
 df_pcs <-data.frame(df_pca$x,concentration = anno$concentration,Accession=anno$Accession)
-head(df_pcs,3)  #²é¿´Ö÷³É·Ö½á¹û
+head(df_pcs,3)  #æŸ¥çœ‹ä¸»æˆåˆ†ç»“æœ
 plot(df_pca$x[,1], df_pca$x[,2])
-#pdf("pca.log2norm413.pdf") #¿ÉÒÔµ¥¶À»­»­
+#pdf("pca.log2norm413.pdf") #å¯ä»¥å•ç‹¬ç”»ç”»
 ggplot(df_pcs,aes(x=PC1,y=PC2,color=concentration,shape=Accession))+ geom_point()
 
 percentage<-round(df_pca$sdev / sum(df_pca$sdev) * 100,2)
@@ -763,20 +763,20 @@ ggplot(pumap,aes(UMAP_1,UMAP_2,color=concentration,shape=Accession))+
         legend.text=element_text(size=15)) +theme(axis.title.x = element_text(size = 15)) +
   theme(axis.title.y = element_text(size = 15))+ scale_color_manual(values=c("#f9320c","#60c5ba","#03a6ff","#d62a9d","#6a60a9","#f199bc"))
 
-#combatÈ¥Åú´Î
+#combatå»æ‰¹æ¬¡
 library(sva)
 ad.ComBat <- t(ComBat(t(ad.clr), batch = anno$batch))
 
 #PCA
-df_pca <- prcomp(ad.ComBat) #¼ÆËãÖ÷³É·Ö
+df_pca <- prcomp(ad.ComBat) #è®¡ç®—ä¸»æˆåˆ†
 dim(ad.ComBat)
 dim(expr1)
 anno$concentration<- factor(anno$concentration, levels=c("0","150","200","salt-alkali","sk","mock"), ordered=TRUE)
 anno$Accession<- factor(anno$Accession, levels=c("T","S","TM-1"), ordered=TRUE)
 df_pcs <-data.frame(df_pca$x,concentration = anno$concentration,Accession=anno$Accession)
-head(df_pcs,3)  #²é¿´Ö÷³É·Ö½á¹û
+head(df_pcs,3)  #æŸ¥çœ‹ä¸»æˆåˆ†ç»“æœ
 plot(df_pca$x[,1], df_pca$x[,2])
-#pdf("pca.log2norm413.pdf") #¿ÉÒÔµ¥¶À»­»­
+#pdf("pca.log2norm413.pdf") #å¯ä»¥å•ç‹¬ç”»ç”»
 ggplot(df_pcs,aes(x=PC1,y=PC2,color=concentration,shape=Accession))+ geom_point()
 
 percentage<-round(df_pca$sdev / sum(df_pca$sdev) * 100,2)
@@ -830,17 +830,17 @@ ggplot(pumap,aes(UMAP_1,UMAP_2,color=concentration,shape=Accession))+
         legend.text=element_text(size=15)) +theme(axis.title.x = element_text(size = 15)) +
   theme(axis.title.y = element_text(size = 15))+ scale_color_manual(values=c("#f9320c","#60c5ba","#03a6ff","#d62a9d","#6a60a9","#f199bc")) 
 
-#######¸ù£¨Ê±¼ä+Å¨¶È£©
+#######æ ¹ï¼ˆæ—¶é—´+æµ“åº¦ï¼‰
 rm(list=ls())
 library(data.table)
 expr1=fread("C:/Users/hr345/Desktop/all/alltpm1.txt",header=T,sep="\t")
-sample=fread("C:/Users/hr345/Desktop/all/E¸÷Ààsample/sample(final).txt",header=T,sep="\t")
+sample=fread("C:/Users/hr345/Desktop/all/Eå„ç±»sample/sample(final).txt",header=T,sep="\t")
 colnames(expr1)[1] <- 'SRR'
 aa=merge(sample,expr1,by="SRR",sort=F)
 dim(aa)
 #[1]   234 75382
 rownames(aa)=aa$SRR
-expr=t(aa[,-1:-6]) #batch:Åú´Î
+expr=t(aa[,-1:-6]) #batch:æ‰¹æ¬¡
 dim(expr)
 #[1] 75376   170
 anno=sample
@@ -867,7 +867,7 @@ expr1=t(expr)
 
 #PCA
 library(ggplot2)
-df_pca <- prcomp(log2(expr1+1)) #¼ÆËãÖ÷³É·Ö
+df_pca <- prcomp(log2(expr1+1)) #è®¡ç®—ä¸»æˆåˆ†
 dim(expr1)
 anno$time<- factor(anno$time, levels=c("0h", "15m", "1h","3h","6h","12h","24h","48h","72h"), ordered=TRUE)
 anno$concentration<- factor(anno$concentration, levels=c("mock","150","200","salt-alkali","sk"), ordered=TRUE)
@@ -921,7 +921,7 @@ ggplot(pumap,aes(UMAP_1,UMAP_2,color=time,shape=concentration))+
      scale_color_manual(values=c("#D1B6E1","#fab1ce","#EE7785","#ef5285","#C5E99B","#8CD790","#77AF9C","#379392","#285943"))+ scale_shape_manual(values=c(15,14,17,18,16))
 
 
-#È¥Åú´Î
+#å»æ‰¹æ¬¡
 anno$time<- factor(anno$time, levels=c("0h", "15m", "1h","3h","6h","12h","24h","48h","72h"), ordered=TRUE)
 anno$concentration<- factor(anno$concentration, levels=c("mock","150","200","salt-alkali","sk"), ordered=TRUE)
 anno$batch<- factor(anno$batch, levels=c("PRJNA531727","PRJNA485838","PRJNA532694","PRJNA919499"), ordered=TRUE)
@@ -946,16 +946,16 @@ ad.rBE <- t(removeBatchEffect(t(ad.clr), batch = anno$batch,design = ad.mod))
 library(gridExtra)
 library("ggpubr")
 library(ggplot2)
-df_pca <- prcomp(ad.rBE) #¼ÆËãÖ÷³É·Ö
+df_pca <- prcomp(ad.rBE) #è®¡ç®—ä¸»æˆåˆ†
 dim(ad.rBE)
 dim(expr1)
 anno$time<- factor(anno$time, levels=c("0h", "15m", "1h","3h","6h","12h","24h","48h","72h"), ordered=TRUE)
 anno$concentration<- factor(anno$concentration, levels=c("mock","150","200","salt-alkali","sk"), ordered=TRUE)
 df_pcs <-data.frame(df_pca$x,time = anno$time,concentration=anno$concentration)  
 
-head(df_pcs,3)  #²é¿´Ö÷³É·Ö½á¹û
+head(df_pcs,3)  #æŸ¥çœ‹ä¸»æˆåˆ†ç»“æœ
 plot(df_pca$x[,1], df_pca$x[,2])
-#pdf("pca.log2norm413.pdf") #¿ÉÒÔµ¥¶À»­»­
+#pdf("pca.log2norm413.pdf") #å¯ä»¥å•ç‹¬ç”»ç”»
 ggplot(df_pcs,aes(x=PC1,y=PC2,color=time,shape=concentration))+ geom_point()
 head(df_pcs,3)
 plot(df_pca$x[,1], df_pca$x[,2])
@@ -1010,20 +1010,20 @@ ggplot(pumap,aes(UMAP_1,UMAP_2,color=time,shape=concentration))+
         legend.text=element_text(size=15)) +theme(axis.title.x = element_text(size = 15)) +
   theme(axis.title.y = element_text(size = 15))+ scale_color_manual(values=c("#D1B6E1","#fab1ce","#EE7785","#ef5285","#C5E99B","#8CD790","#77AF9C","#379392","#285943"))+ scale_shape_manual(values=c(15,14,17,18,16))
 
-#combatÈ¥Åú´Î
+#combatå»æ‰¹æ¬¡
 library(sva)
 ad.ComBat <- t(ComBat(t(ad.clr), batch = anno$batch))
 
 #PCA
-df_pca <- prcomp(ad.ComBat) #¼ÆËãÖ÷³É·Ö
+df_pca <- prcomp(ad.ComBat) #è®¡ç®—ä¸»æˆåˆ†
 dim(ad.ComBat)
 dim(expr1)
 anno$time<- factor(anno$time, levels=c("0h", "15m", "1h","3h","6h","12h","24h","48h","72h"), ordered=TRUE)
 anno$concentration<- factor(anno$concentration, levels=c("mock","150","200","salt-alkali","sk"), ordered=TRUE)
 df_pcs <-data.frame(df_pca$x,time = anno$time,concentration=anno$concentration)
-head(df_pcs,3)  #²é¿´Ö÷³É·Ö½á¹û
+head(df_pcs,3)  #æŸ¥çœ‹ä¸»æˆåˆ†ç»“æœ
 plot(df_pca$x[,1], df_pca$x[,2])
-#pdf("pca.log2norm413.pdf") #¿ÉÒÔµ¥¶À»­»­
+#pdf("pca.log2norm413.pdf") #å¯ä»¥å•ç‹¬ç”»ç”»
 ggplot(df_pcs,aes(x=PC1,y=PC2,color=time,shape=concentration))+ geom_point()
 
 percentage<-round(df_pca$sdev / sum(df_pca$sdev) * 100,2)
@@ -1076,17 +1076,17 @@ ggplot(pumap,aes(UMAP_1,UMAP_2,color=time,shape=concentration))+
         legend.text=element_text(size=15)) +theme(axis.title.x = element_text(size = 15)) +
   theme(axis.title.y = element_text(size = 15))+ scale_color_manual(values=c("#D1B6E1","#fab1ce","#EE7785","#8EC0E4","#C5E99B","#8CD790","#77AF9C","#379392","#285943"))+ scale_shape_manual(values=c(18,17,15,14,16))
 
-#######¸ù£¨Åú´Î£©
+#######æ ¹ï¼ˆæ‰¹æ¬¡ï¼‰
 rm(list=ls())
 library(data.table)
 expr1=fread("C:/Users/hr345/Desktop/all/alltpm1.txt",header=T,sep="\t")
-sample=fread("C:/Users/hr345/Desktop/all/E¸÷Ààsample/sample(final).txt",header=T,sep="\t")
+sample=fread("C:/Users/hr345/Desktop/all/Eå„ç±»sample/sample(final).txt",header=T,sep="\t")
 colnames(expr1)[1] <- 'SRR'
 aa=merge(sample,expr1,by="SRR",sort=F)
 dim(aa)
 #[1]   234 75382
 rownames(aa)=aa$SRR
-expr=t(aa[,-1:-6]) #batch:Åú´Î
+expr=t(aa[,-1:-6]) #batch:æ‰¹æ¬¡
 dim(expr)
 #[1] 75376   170
 anno=sample
@@ -1111,9 +1111,9 @@ expr <- expr1[keep,]
 dim(expr)
 expr1=t(expr)
 
-#Î´È¥Åú´Î
+#æœªå»æ‰¹æ¬¡
 library(ggplot2)
-df_pca <- prcomp(log2(expr1+1)) #¼ÆËãÖ÷³É·Ö
+df_pca <- prcomp(log2(expr1+1)) #è®¡ç®—ä¸»æˆåˆ†
 dim(expr1)
 anno$batch<- factor(anno$batch, levels=c("PRJNA531727","PRJNA485838","PRJNA532694","PRJNA919499"), ordered=TRUE)
 df_pcs <-data.frame(df_pca$x,batch = anno$batch)
@@ -1132,7 +1132,7 @@ ggplot(df_pcs,aes(x=PC1,y=PC2,color=batch))+
   scale_color_manual(values=c("#D1B6E1","#fab1ce","#cbe86b","#4ea1d3"))
 
 
-#È¥Åú´Î
+#å»æ‰¹æ¬¡
 anno$batch<- factor(anno$batch, levels=c("PRJNA531727","PRJNA485838","PRJNA532694","PRJNA919499"), ordered=TRUE)
 ad.batch =  factor(anno$batch, levels=c("PRJNA531727","PRJNA485838","PRJNA532694","PRJNA919499"), ordered=TRUE)
 dim(ad.batch)
@@ -1153,15 +1153,15 @@ ad.rBE <- t(removeBatchEffect(t(ad.clr), batch = anno$batch,design = ad.mod))
 library(gridExtra)
 library("ggpubr")
 library(ggplot2)
-df_pca <- prcomp(ad.rBE) #¼ÆËãÖ÷³É·Ö
+df_pca <- prcomp(ad.rBE) #è®¡ç®—ä¸»æˆåˆ†
 dim(ad.rBE)
 dim(expr1)
 anno$batch<- factor(anno$batch, levels=c("PRJNA531727","PRJNA485838","PRJNA532694","PRJNA919499"), ordered=TRUE)
 df_pcs <-data.frame(df_pca$x,batch = anno$batch)  
 
-head(df_pcs,3)  #²é¿´Ö÷³É·Ö½á¹û
+head(df_pcs,3)  #æŸ¥çœ‹ä¸»æˆåˆ†ç»“æœ
 plot(df_pca$x[,1], df_pca$x[,2])
-#pdf("pca.log2norm413.pdf") #¿ÉÒÔµ¥¶À»­»­
+#pdf("pca.log2norm413.pdf") #å¯ä»¥å•ç‹¬ç”»ç”»
 ggplot(df_pcs,aes(x=PC1,y=PC2,color=batch))+ geom_point()
 head(df_pcs,3)
 plot(df_pca$x[,1], df_pca$x[,2])
@@ -1180,14 +1180,14 @@ ggplot(df_pcs,aes(x=PC1,y=PC2,color=batch))+
 #combat
 library(sva)
 ad.ComBat <- t(ComBat(t(ad.clr), batch = anno$batch))
-df_pca <- prcomp(ad.ComBat) #¼ÆËãÖ÷³É·Ö
+df_pca <- prcomp(ad.ComBat) #è®¡ç®—ä¸»æˆåˆ†
 dim(ad.ComBat)
 dim(expr1)
 anno$batch<- factor(anno$batch, levels=c("PRJNA531727","PRJNA485838","PRJNA532694","PRJNA919499"), ordered=TRUE)
 df_pcs <-data.frame(df_pca$x,batch = anno$batch)
-head(df_pcs,3)  #²é¿´Ö÷³É·Ö½á¹û
+head(df_pcs,3)  #æŸ¥çœ‹ä¸»æˆåˆ†ç»“æœ
 plot(df_pca$x[,1], df_pca$x[,2])
-#pdf("pca.log2norm413.pdf") #¿ÉÒÔµ¥¶À»­»­
+#pdf("pca.log2norm413.pdf") #å¯ä»¥å•ç‹¬ç”»ç”»
 ggplot(df_pcs,aes(x=PC1,y=PC2,color=batch))+ geom_point()
 
 percentage<-round(df_pca$sdev / sum(df_pca$sdev) * 100,2)
@@ -1204,18 +1204,18 @@ ggplot(df_pcs,aes(x=PC1,y=PC2,color=batch))+
 
 
 
-#######¸ù£¨È¥Åú´Î£©ÈÈÍ¼
+#######æ ¹ï¼ˆå»æ‰¹æ¬¡ï¼‰çƒ­å›¾
 rm(list=ls())
 library(data.table)
 expr1=fread("C:/Users/hr345/Desktop/all/alltpm1.txt",header=T,sep="\t")
 library(xlsx)
-sample <- read.xlsx("C:/Users/hr345/Desktop/all/¸÷Ààsample/Ê±¼ä.xlsx",1,encoding="UTF-8")
+sample <- read.xlsx("C:/Users/hr345/Desktop/all/å„ç±»sample/æ—¶é—´.xlsx",1,encoding="UTF-8")
 colnames(expr1)[1] <- 'SRR'
 aa=merge(sample,expr1,by="SRR",sort=F)
 dim(aa)
 #[1]   234 75382
 rownames(aa)=aa$SRR
-expr=t(aa[,-1:-6]) #batch:Åú´Î
+expr=t(aa[,-1:-6]) #batch:æ‰¹æ¬¡
 dim(expr)
 #[1] 75376   170
 
@@ -1255,7 +1255,7 @@ expr1_unique=expr2
 row.names(expr1_unique)=anno$time
 sample_cor <- cor(t(expr1_unique))
 sample_cor1 <- round(sample_cor, digits = 2)
-#»­Í¼
+#ç”»å›¾
 library(pheatmap)
 pheatmap(sample_cor1, display_numbers = F,fontsize = 10, angle_col = 0,
          cluster_rows = F,cluster_cols = F,show_rownames = T,show_colnames = F,
@@ -1268,7 +1268,7 @@ sample_dist <- dist(expr1_unique)
 sample_hc <- hclust(sample_dist)
 plot(sample_hc)
 
-########É¸Ñ¡±í´ïÁ¿
+########ç­›é€‰è¡¨è¾¾é‡
 rm(list=ls())
 library(data.table)
 expr1=fread("C:/Users/hr345/Desktop/all/alltpm1.txt",header=T,sep="\t")
@@ -1295,11 +1295,11 @@ known=fread("C:/Users/hr345/Desktop/all/1.txt",header=T,sep="\t")
 cc=intersect(known$Geneid,row.names(expr.all))
 
 
-##É¸Ñ¡TF
+##ç­›é€‰TF
 rm(list=ls())
 library(data.table)
 expr1=fread("C:/Users/hr345/Desktop/all/alltpm1.txt",header=T,sep="\t")
-sample=fread("C:/Users/hr345/Desktop/all/WGCNA/¿¹¸Ğ/¿¹¸Ğsample.txt",header=T,sep="\t")
+sample=fread("C:/Users/hr345/Desktop/all/WGCNA/æŠ—æ„Ÿ/æŠ—æ„Ÿsample.txt",header=T,sep="\t")
 colnames(expr1)[1] <- 'SRR'
 aa=merge(sample,expr1,by="SRR",sort=F)
 dim(aa)
@@ -1310,7 +1310,7 @@ dim(expr)
 anno=sample
 dim(anno)
 #234 6
-#####¸ù×ö¾ÛÀà   È¥µô1¸öÑù±¾
+#####æ ¹åšèšç±»   å»æ‰1ä¸ªæ ·æœ¬
 anno=sample[1:123,]
 dim(anno)
 expr1=t(expr)
@@ -1340,14 +1340,14 @@ library(sva)
 ad.ComBat <- t(ComBat(t(ad.clr), batch = anno$batch))
 expr=t(ad.ComBat)
 TF=fread("C:/Users/hr345/Desktop/all/TF/5048TF.txt",header=T,sep="\t")
-write.csv(expr,file="expr.csv")#ÊÖ¶¯ÔÙµÚÒ»ĞĞ¼ÓÉÏSRR£¬È»ºó×ª³ÉĞÂ½¨ÎÄ±¾ÎÄµµ.txt
-expr2=fread("C:/Users/hr345/Desktop/ĞÂ½¨ÎÄ±¾ÎÄµµ.txt",header=T,sep="\t")
+write.csv(expr,file="expr.csv")#æ‰‹åŠ¨å†ç¬¬ä¸€è¡ŒåŠ ä¸ŠSRRï¼Œç„¶åè½¬æˆæ–°å»ºæ–‡æœ¬æ–‡æ¡£.txt
+expr2=fread("C:/Users/hr345/Desktop/æ–°å»ºæ–‡æœ¬æ–‡æ¡£.txt",header=T,sep="\t")
 aa=merge(TF,expr2,by="SRR",sort=F)
 write.csv(aa,file="TF.csv")
 library(dplyr)
 specialcxy<-anti_join(expr2,aa,by='SRR')
-write.csv(specialcxy,file="specialcxy.csv")#ÊÖ¶¯ºÏ²¢Á½¸öÎÄ¼ş
+write.csv(specialcxy,file="specialcxy.csv")#æ‰‹åŠ¨åˆå¹¶ä¸¤ä¸ªæ–‡ä»¶
 sample2=t(anno)
-write.csv(sample2,file="sample2.csv")#µ¼³öºó½«µÚÒ»ĞĞSRRºÅÌáÈ¡³öÀ´Õ³Ìùµ½Ç°ÃæµÄÎÄ¼şÖĞ
+write.csv(sample2,file="sample2.csv")#å¯¼å‡ºåå°†ç¬¬ä¸€è¡ŒSRRå·æå–å‡ºæ¥ç²˜è´´åˆ°å‰é¢çš„æ–‡ä»¶ä¸­
 
 
